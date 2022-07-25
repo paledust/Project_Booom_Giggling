@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+        GameManager.mainCam = Camera.main;
         transform.parent = null;
         DontDestroyOnLoad(gameObject);
     }
