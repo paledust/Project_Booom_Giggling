@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteFold
+  m_Name: SpriteFold_Tear
   m_Shader: {fileID: 4800000, guid: 916ec01f2d76b354f9a1a92195c72000, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TearMask:
-        m_Texture: {fileID: 2800000, guid: 17b78c25296033a44868bd92734def64, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

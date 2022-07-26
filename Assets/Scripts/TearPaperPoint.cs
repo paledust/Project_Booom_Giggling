@@ -6,7 +6,8 @@ public class TearPaperPoint : MonoBehaviour
 {
     [SerializeField] private float TearLength;
 [Header("纸张")]
-    [SerializeField] private SpriteRenderer paper_tear_reversed;
+    [SerializeField] private SpriteRenderer paper_tear;
+    [SerializeField] private SpriteRenderer paper_stay;
     [SerializeField] private float MaxOffset = 3;
 [Header("反馈")]
     [SerializeField] private SpriteRenderer fingerPrint;
@@ -24,7 +25,7 @@ public class TearPaperPoint : MonoBehaviour
     public static int AngleID = Shader.PropertyToID("_FoldAngle");
     void Awake(){
         tearPos = initPos = transform.position;
-        tearpaper_initRot = paper_tear_reversed.transform.rotation;
+        tearpaper_initRot = paper_tear.transform.rotation;
         tearDir = transform.right.normalized;
         tearNormalDir = transform.up.normalized;
         endPos = transform.position + transform.right * TearLength;
@@ -32,10 +33,9 @@ public class TearPaperPoint : MonoBehaviour
         initialized = true;
     }
     void OnEnable(){
-        initPosToPaper = paper_tear_reversed.transform.position - transform.position;
+        initPosToPaper = paper_tear.transform.position - transform.position;
     }
     void OnDisable(){
-        // paper_tear_reversed.sharedMaterial.SetFloat(AngleID, 0);
         Shader.SetGlobalVector(Service.DRAG_POINT_ID, new Vector4(initPos.x, initPos.y, initPos.z, 1));
     }
     public void StartDragThisPoint(){
@@ -58,11 +58,12 @@ public class TearPaperPoint : MonoBehaviour
         float angle = Vector2.SignedAngle(tearDir, transform.position - initPos);
         angle = Mathf.Clamp(angle, -5, 5);
 
-        Vector3 tear_fold_diff = paper_tear_reversed.transform.position - foldPoint;
-        paper_tear_reversed.transform.position = tearPos + initPosToPaper;
-        paper_tear_reversed.transform.rotation = Quaternion.Euler(0, 0, angle) * tearpaper_initRot;
+        Vector3 tear_fold_diff = paper_tear.transform.position - foldPoint;
+        paper_tear.transform.position = tearPos + initPosToPaper;
+        paper_tear.transform.rotation = Quaternion.Euler(0, 0, angle) * tearpaper_initRot;
 
-        paper_tear_reversed.sharedMaterial.SetFloat(AngleID, -angle);
+        paper_tear.material.SetFloat(AngleID, -angle);
+        paper_stay.material.SetFloat(AngleID, -angle);
         Shader.SetGlobalVector(Service.DRAG_POINT_ID, new Vector4(foldPoint.x, foldPoint.y, foldPoint.z, 1));
 
         Vector3 diff = endPos - transform.position;
