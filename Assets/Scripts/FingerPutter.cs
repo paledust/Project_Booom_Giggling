@@ -7,9 +7,7 @@ public class FingerPutter : MonoBehaviour
     [SerializeField] private SpriteRenderer fingerPrint;
     [SerializeField] private Key key;
     private Color initcolor;
-    void Awake(){
-        initcolor = fingerPrint.color;
-    }
+    void Awake()=>initcolor = fingerPrint.color;
     void Update(){
         if(Keyboard.current[key].wasPressedThisFrame){
             fingerPrint.color = Color.red;
