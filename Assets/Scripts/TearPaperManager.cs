@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 public class TearPaperManager : MonoBehaviour
 {
     [SerializeField] private TearPaperPoint currentTearingPoint;
-    void Update(){
-        if(Mouse.current.leftButton.wasPressedThisFrame){
+    [SerializeField] private float tearSpeed;
+    void OnGrab(InputValue value){
+        if(value.isPressed){
             Vector3 mousePoint = GameManager.mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Collider2D hit = Physics2D.OverlapCircle(mousePoint, 0.3f, Service.InteractableLayer);
             if(hit!=null){
@@ -14,8 +15,12 @@ public class TearPaperManager : MonoBehaviour
                 currentTearingPoint.StartDragThisPoint();
             }
         }
-        else if(Mouse.current.leftButton.wasReleasedThisFrame){
+        else{
             currentTearingPoint?.ReleaseThisPoint();
+            currentTearingPoint = null;
         }
+    }
+    void OnMouseMove(InputValue value){
+        currentTearingPoint?.MoveTheTearPoint(value.Get<Vector2>() * tearSpeed);
     }
 }
