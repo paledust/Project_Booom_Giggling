@@ -11,9 +11,11 @@ public class FingerPutter : MonoBehaviour
     void Update(){
         if(Keyboard.current[key].wasPressedThisFrame){
             fingerPrint.color = Color.red;
+            EventHandler.Call_OnPutOnFingers(true);
         }
         else if(Keyboard.current[key].wasReleasedThisFrame){
             fingerPrint.color = initcolor;
+            EventHandler.Call_OnPutOnFingers(false);
         }
     }
 }

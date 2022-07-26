@@ -4,8 +4,31 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class TearPaperManager : MonoBehaviour
 {
+    [SerializeField] private FingerPutter[] fingerPutters;
     [SerializeField] private TearPaperPoint currentTearingPoint;
     [SerializeField] private float tearSpeed;
+    private bool canTear = false;
+    [SerializeField] int counter = 0;
+    void Awake(){
+        fingerPutters = FindObjectsOfType<FingerPutter>();
+    }
+    void OnEnable()=>EventHandler.E_OnPutOnFingers += SwitchTearing;
+    void OnDisable()=>EventHandler.E_OnPutOnFingers -= SwitchTearing;
+    void SwitchTearing(bool putOnFinger){
+        if(putOnFinger){
+            counter ++;
+        }
+        else{
+            counter --;
+        }
+
+        if(counter == fingerPutters.Length){
+            canTear = true;
+        }
+        else{
+            canTear = false;
+        }
+    }
     void OnGrab(InputValue value){
         if(value.isPressed){
             Vector3 mousePoint = GameManager.mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -21,6 +44,8 @@ public class TearPaperManager : MonoBehaviour
         }
     }
     void OnMouseMove(InputValue value){
-        currentTearingPoint?.MoveTheTearPoint(value.Get<Vector2>() * tearSpeed);
+        if(canTear){
+            currentTearingPoint?.MoveTheTearPoint(value.Get<Vector2>() * tearSpeed);
+        }
     }
 }

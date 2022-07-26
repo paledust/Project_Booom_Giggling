@@ -8,9 +8,9 @@ public static class EventHandler
 {
     //This is a test event and it's calling function
     public static event Action<float> E_OnTestEvent;
-    public static void Call_OnTestEvent(float data){
-        E_OnTestEvent?.Invoke(data);
-    }
+    public static void Call_OnTestEvent(float data){E_OnTestEvent?.Invoke(data);}
+    public static event Action<bool> E_OnPutOnFingers;
+    public static void Call_OnPutOnFingers(bool value){E_OnPutOnFingers?.Invoke(value);}
 }
 
 //A More Strict Event System
