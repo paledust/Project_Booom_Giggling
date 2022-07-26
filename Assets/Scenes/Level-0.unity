@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerPrint: {fileID: 359186752}
-  key: 32
+  key: 1
 --- !u!1 &447025046
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerPrint: {fileID: 1094985935}
-  key: 114
+  key: 32
 --- !u!1 &1159809808
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerPrint: {fileID: 1660303001}
-  key: 119
+  key: 37
 --- !u!1 &1688374839
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerPrint: {fileID: 1688374840}
-  key: 101
+  key: 19
 --- !u!1 &2050094850
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,4 +881,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fingerPrint: {fileID: 2120017400}
-  key: 97
+  key: 15
