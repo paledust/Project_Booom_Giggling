@@ -68,7 +68,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FoldAngle: 0
+    - _FoldAngle: 0.73515266
+    - _FoldDark: 0.25
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1

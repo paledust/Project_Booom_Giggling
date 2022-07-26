@@ -965,7 +965,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TearLength: 9.11
-  paper_tear_reversed: {fileID: 1207458907}
+  paper_tear_reversed: {fileID: 1207458909}
+  MaxOffset: 0.4
   fingerPrint: {fileID: 169918169}
   endRange: 0.1
 --- !u!1 &1207458906
@@ -1020,7 +1021,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2fd7b684a8e33834281bec8d3732a276, type: 2}
+  - {fileID: 2100000, guid: 7b32ad1d3ede59d4abf76d5d32366c66, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1040,7 +1041,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 22f71f1d7de22334182ca8c159bc2c3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
