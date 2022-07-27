@@ -18,7 +18,6 @@ public class RighthandController : MonoBehaviour
     {
         Cursor.visible = false;
         RighthandMove();
-        
     }
 
     void RighthandMove()
