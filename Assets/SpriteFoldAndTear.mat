@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteFold_Tear
+  m_Name: SpriteFoldAndTear
   m_Shader: {fileID: 4800000, guid: 916ec01f2d76b354f9a1a92195c72000, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -48,6 +48,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 99c9e3c9577e26847908d3bfec8d5a1e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 8400000, guid: 67611a24ce943d541b9256274f435473, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -61,7 +65,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TearMask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 17b78c25296033a44868bd92734def64, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TearedTex:
+        m_Texture: {fileID: 2800000, guid: 6f610c9570a9c8c41ad289576e81eb12, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TearedText:
+        m_Texture: {fileID: 2800000, guid: 6f610c9570a9c8c41ad289576e81eb12, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -73,7 +85,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FoldAngle: 0
-    - _FoldDark: 0.5
+    - _FoldDark: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
