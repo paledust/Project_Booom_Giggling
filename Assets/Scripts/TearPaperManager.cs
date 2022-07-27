@@ -43,9 +43,14 @@ public class TearPaperManager : MonoBehaviour
             currentTearingPoint = null;
         }
     }
-    void OnMouseMove(InputValue value){
+    // void OnMouseMove(InputValue value){
+    //     if(canTear){
+    //         currentTearingPoint?.MoveTheTearPoint(value.Get<Vector2>() * tearSpeed);
+    //     }
+    // }
+    void OnMousePosition(InputValue value){
         if(canTear){
-            currentTearingPoint?.MoveTheTearPoint(value.Get<Vector2>() * tearSpeed);
+            currentTearingPoint?.MoveTheTearPointToMousePos(value.Get<Vector2>());
         }
     }
 }
