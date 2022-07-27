@@ -830,7 +830,7 @@ MonoBehaviour:
   TearLength: 9.11
   paper_tear: {fileID: 1207458909}
   paper_stay: {fileID: 1138444461}
-  MaxOffset: 0.4
+  MaxOffset: 0
   fingerPrint: {fileID: 169918169}
   endRange: 0.1
 --- !u!1 &1207458906
