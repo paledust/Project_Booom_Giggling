@@ -11,6 +11,10 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+#Amplify Shader
+/[Aa]ssets/AmplifyShaderEditor/
+/[Aa]ssets/AmplifyShaderEditor.meta
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/

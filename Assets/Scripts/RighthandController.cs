@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sd : MonoBehaviour
+public class RighthandController : MonoBehaviour
 {
+    Vector3 initialPosition;
+    Quaternion lastRot;
+    Vector3 lastPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,15 +16,40 @@ public class sd : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(m_obj.transform.position);//获取需要移动物体的世界转屏幕坐标
+        Cursor.visible = false;
+        RighthandMove();
+        
+    }
 
-        Vector3 mousePos = Input.mousePosition;//获取鼠标位置
+    void RighthandMove()
+    {
+        Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 m_MousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, pos.z);
+        transform.position = Camera.main.ScreenToWorldPoint(m_MousePos);
 
-        mousePos.z = screenPos.z;//因为鼠标只有X，Y轴，所以要赋予给鼠标Z轴
+        // lastRot = transform.rotation;
+        // lastPos = transform.position;
+        // Debug.Log(transform.position.x > lastPos.x);
 
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);//把鼠标的屏幕坐标转换成世界坐标
+        // if(transform.position.x > lastPos.x)
+        // {
+        //     transform.rotation = Quaternion.Euler(0,0,lastRot.z+10);
+        // }else
+        // {
+        //     transform.rotation = Quaternion.Euler(0,0,lastRot.z-10);
+        // }
 
-        m_obj.position = worldPos;//控制物体移动
+
+
+
 
     }
+
+    // void RighthandMove2()
+    // {
+
+    //     transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    // }
+
+
 }

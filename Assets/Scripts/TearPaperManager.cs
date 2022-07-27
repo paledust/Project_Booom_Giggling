@@ -4,9 +4,33 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class TearPaperManager : MonoBehaviour
 {
+    [SerializeField] private FingerPutter[] fingerPutters;
     [SerializeField] private TearPaperPoint currentTearingPoint;
-    void Update(){
-        if(Mouse.current.leftButton.wasPressedThisFrame){
+    [SerializeField] private float tearSpeed;
+    private bool canTear = false;
+    [SerializeField] int counter = 0;
+    void Awake(){
+        fingerPutters = FindObjectsOfType<FingerPutter>();
+    }
+    void OnEnable()=>EventHandler.E_OnPutOnFingers += SwitchTearing;
+    void OnDisable()=>EventHandler.E_OnPutOnFingers -= SwitchTearing;
+    void SwitchTearing(bool putOnFinger){
+        if(putOnFinger){
+            counter ++;
+        }
+        else{
+            counter --;
+        }
+
+        if(counter == fingerPutters.Length){
+            canTear = true;
+        }
+        else{
+            canTear = false;
+        }
+    }
+    void OnGrab(InputValue value){
+        if(value.isPressed){
             Vector3 mousePoint = GameManager.mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Collider2D hit = Physics2D.OverlapCircle(mousePoint, 0.3f, Service.InteractableLayer);
             if(hit!=null){
@@ -14,8 +38,14 @@ public class TearPaperManager : MonoBehaviour
                 currentTearingPoint.StartDragThisPoint();
             }
         }
-        else if(Mouse.current.leftButton.wasReleasedThisFrame){
+        else{
             currentTearingPoint?.ReleaseThisPoint();
+            currentTearingPoint = null;
+        }
+    }
+    void OnMouseMove(InputValue value){
+        if(canTear){
+            currentTearingPoint?.MoveTheTearPoint(value.Get<Vector2>() * tearSpeed);
         }
     }
 }
