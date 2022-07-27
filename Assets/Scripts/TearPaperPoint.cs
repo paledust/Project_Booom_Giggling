@@ -5,11 +5,11 @@ using UnityEngine;
 public class TearPaperPoint : MonoBehaviour
 {
     [SerializeField] private float TearLength;
-[Header("纸张")]
+    [Header("纸张")]
     [SerializeField] private SpriteRenderer paper_tear;
     [SerializeField] private SpriteRenderer paper_stay;
     [SerializeField] private float MaxOffset = 3;
-[Header("反馈")]
+    [Header("反馈")]
     [SerializeField] private SpriteRenderer fingerPrint;
     [SerializeField] private float endRange = 0.1f;
     private Color initcolor;
