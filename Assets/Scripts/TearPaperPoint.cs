@@ -8,9 +8,8 @@ public class TearPaperPoint : MonoBehaviour
     [Header("纸张")]
     [SerializeField] private SpriteRenderer paper_tear;
     [SerializeField] private SpriteRenderer paper_stay;
-    [SerializeField] private float MaxOffset = 3;
+    [SerializeField] private AnimationCurve OffsetCurve;
     [Header("反馈")]
-    [SerializeField] private SpriteRenderer fingerPrint;
     [SerializeField] private float endRange = 0.1f;
     private Color initcolor;
     private Vector3 initPos;
@@ -19,7 +18,6 @@ public class TearPaperPoint : MonoBehaviour
     private Vector3 endPos;
     private Vector3 initPosToPaper;
     private Vector3 tearPos;
-    private float offset;
     bool initialized;
     public static int AngleID = Shader.PropertyToID("_FoldAngle");
     void Awake(){
@@ -27,7 +25,6 @@ public class TearPaperPoint : MonoBehaviour
         tearDir = transform.right.normalized;
         tearNormalDir = transform.up.normalized;
         endPos = transform.position + transform.right * TearLength;
-        initcolor = fingerPrint.color;
         initialized = true;
     }
     void OnEnable(){
@@ -42,12 +39,8 @@ public class TearPaperPoint : MonoBehaviour
             
         }
     }
-    public void StartDragThisPoint(){
-        fingerPrint.color = Color.red;
-    }
-    public void ReleaseThisPoint(){
-        fingerPrint.color = initcolor;
-    }
+    public void StartDragThisPoint(){}
+    public void ReleaseThisPoint(){}
     /// <summary>
     /// 此方法会根据鼠标指针的位置，实时更新纸张撕扯的进度
     /// </summary>
@@ -56,9 +49,9 @@ public class TearPaperPoint : MonoBehaviour
         Vector2 calculateMouse = GameManager.mainCam.ScreenToWorldPoint(mousePos);
         Vector3 lastTearPos = tearPos;
         tearPos = Mathf.Max(0, Vector2.Dot(tearDir, calculateMouse - (Vector2)initPos)) * tearDir + initPos;
-        if(Vector3.Dot(tearPos-lastTearPos, tearDir)<=0){
-            tearPos = lastTearPos;
-        }
+        // if(Vector3.Dot(tearPos-lastTearPos, tearDir)<=0){
+        //     tearPos = lastTearPos;
+        // }
         transform.position = tearPos;
 
         Vector3 foldPoint = (initPos + transform.position)/2f;
@@ -77,12 +70,7 @@ public class TearPaperPoint : MonoBehaviour
     /// </summary>
     /// <param name="inputDirection"></param>
     public void MoveTheTearPoint(Vector2 inputDirection){
-        float T = Vector2.Dot(inputDirection, tearDir);
-        // float N = Vector3.Dot(inputDirection, tearNormalDir);
-        // offset += N * Time.deltaTime;
-        // offset = Mathf.Clamp(offset, -MaxOffset, MaxOffset);
-
-        tearPos += Mathf.Max(0, T) * tearDir * Time.deltaTime;
+        tearPos += Mathf.Max(0, Vector2.Dot(inputDirection, tearDir)) * tearDir * Time.deltaTime;
         transform.position = tearPos;
 
         Vector3 foldPoint = (initPos + transform.position)/2f;

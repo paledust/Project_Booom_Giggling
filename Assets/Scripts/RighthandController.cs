@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RighthandController : MonoBehaviour
 {
@@ -10,21 +11,20 @@ public class RighthandController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Cursor.visible = false;
         RighthandMove();
     }
 
     void RighthandMove()
     {
-        Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
-        Vector3 m_MousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, pos.z);
-        transform.position = Camera.main.ScreenToWorldPoint(m_MousePos);
+        Vector3 pos = GameManager.mainCam.WorldToScreenPoint(transform.position);
+        Vector3 m_MousePos = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, pos.z);
+        transform.position = GameManager.mainCam.ScreenToWorldPoint(m_MousePos);
 
         // lastRot = transform.rotation;
         // lastPos = transform.position;
