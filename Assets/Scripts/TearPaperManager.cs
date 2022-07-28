@@ -4,14 +4,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class TearPaperManager : Singleton<TearPaperManager>
 {
+    [SerializeField] private TearPaperPoint[] tearPapers;
     [SerializeField] private TearPaperPoint currentTearingPoint;
     [SerializeField] private float tearSpeed;
     private bool canTear = false;
+    private int paperIndex = 0;
     void OnEnable(){
-        EventHandler.E_OnFinishCurrentTear += ReleaseCurrentPoint;
+        tearPapers[paperIndex].gameObject.SetActive(true);
+        EventHandler.E_OnFinishCurrentTear += FinishCurrentPaper;
     }
     void OnDisable(){
-        EventHandler.E_OnFinishCurrentTear -= ReleaseCurrentPoint;
+        EventHandler.E_OnFinishCurrentTear -= FinishCurrentPaper;
     }
     public void SetCanTear(bool value){
         canTear = value;
@@ -32,6 +35,18 @@ public class TearPaperManager : Singleton<TearPaperManager>
             currentTearingPoint?.ReleaseThisPoint();
             currentTearingPoint = null;
         }
+    }
+    void FinishCurrentPaper(){
+        ReleaseCurrentPoint();
+        if(paperIndex<tearPapers.Length-1){
+            StartCoroutine(CoroutineGoToNextPaper());
+        }
+    }
+    IEnumerator CoroutineGoToNextPaper(){
+        tearPapers[paperIndex].transform.parent.gameObject.SetActive(false);
+        yield return null;
+        paperIndex ++;
+        tearPapers[paperIndex].gameObject.SetActive(true);
     }
     void ReleaseCurrentPoint(){
         currentTearingPoint?.ReleaseThisPoint();

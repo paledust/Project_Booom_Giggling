@@ -20,9 +20,10 @@ public class TearPaperPoint : MonoBehaviour
     private Vector3 endPos;
     private Vector3 initPosToPaper;
     private Vector3 tearPos;
-    public static int AngleID = Shader.PropertyToID("_FoldAngle");
     bool initialized = false;
     bool finished = false;
+    private static int AngleID = Shader.PropertyToID("_FoldAngle");
+    private static int TearID = Shader.PropertyToID("_Tearing");
     void Awake(){
         tearPos = initPos = transform.position;
         tearDir = transform.right.normalized;
@@ -32,6 +33,9 @@ public class TearPaperPoint : MonoBehaviour
     }
     void OnEnable(){
         initPosToPaper = paper_tear.transform.position - transform.position;
+        float angle = Vector2.SignedAngle(tearDir, Vector2.right);
+        paper_tear.material.SetFloat(AngleID, 270+angle);
+        paper_stay.material.SetFloat(AngleID, 270+angle);
         Shader.SetGlobalVector(Service.DRAG_POINT_ID, new Vector4(initPos.x, initPos.y, initPos.z, 1));
     }
     void OnDisable(){
@@ -49,22 +53,26 @@ public class TearPaperPoint : MonoBehaviour
     IEnumerator CoroutineFinished(){
         this.enabled = false;
         m_collider.enabled = false;
-        EventHandler.Call_OnFinishCurrentTear();
         for(float t=0; t<1; t+=Time.deltaTime){
             MoveTheTearPoint(Vector2.down*40);
             yield return null;
         }
         paper_tear.gameObject.SetActive(false);
         paper_stay.sprite = teared_sprite;
+        EventHandler.Call_OnFinishCurrentTear();
         gameObject.SetActive(false);
     }
-    public void StartDragThisPoint(){}
+    public void StartDragThisPoint(){
+        paper_tear.material.SetFloat(TearID, 1);
+        paper_stay.material.SetFloat(TearID, 1);
+    }
     public void ReleaseThisPoint(){}
     /// <summary>
     /// 此方法会根据鼠标指针的位置，实时更新纸张撕扯的进度
     /// </summary>
     /// <param name="mousePos"></param>
     public void MoveTheTearPointToMousePos(Vector2 mousePos){
+        if(finished) return;
         Vector2 calculateMouse = GameManager.mainCam.ScreenToWorldPoint(mousePos);
         Vector3 lastTearPos = tearPos;
         tearPos = Mathf.Max(0, Vector2.Dot(tearDir, calculateMouse - (Vector2)initPos)) * tearDir + initPos;
