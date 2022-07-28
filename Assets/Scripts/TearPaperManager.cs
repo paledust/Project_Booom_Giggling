@@ -12,8 +12,14 @@ public class TearPaperManager : MonoBehaviour
     void Awake(){
         fingerPutters = FindObjectsOfType<FingerPutter>();
     }
-    void OnEnable()=>EventHandler.E_OnPutOnFingers += SwitchTearing;
-    void OnDisable()=>EventHandler.E_OnPutOnFingers -= SwitchTearing;
+    void OnEnable(){
+        EventHandler.E_OnPutOnFingers += SwitchTearing;
+        EventHandler.E_OnFinishCurrentTear += ReleaseCurrentPoint;
+    }
+    void OnDisable(){
+        EventHandler.E_OnPutOnFingers -= SwitchTearing;
+        EventHandler.E_OnFinishCurrentTear -= ReleaseCurrentPoint;
+    }
     void SwitchTearing(bool putOnFinger){
         if(putOnFinger){
             counter ++;
@@ -42,6 +48,10 @@ public class TearPaperManager : MonoBehaviour
             currentTearingPoint?.ReleaseThisPoint();
             currentTearingPoint = null;
         }
+    }
+    void ReleaseCurrentPoint(){
+        currentTearingPoint?.ReleaseThisPoint();
+        currentTearingPoint = null;        
     }
     // void OnMouseMove(InputValue value){
     //     if(canTear){

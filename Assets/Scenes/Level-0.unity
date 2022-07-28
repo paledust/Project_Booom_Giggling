@@ -656,6 +656,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TearLength: 9.11
+  m_collider: {fileID: 1159809811}
+  teared_sprite: {fileID: 21300000, guid: 6f610c9570a9c8c41ad289576e81eb12, type: 3}
   paper_tear: {fileID: 1207458909}
   paper_stay: {fileID: 1138444461}
   OffsetCurve:

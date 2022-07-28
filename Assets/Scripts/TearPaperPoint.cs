@@ -5,7 +5,9 @@ using UnityEngine;
 public class TearPaperPoint : MonoBehaviour
 {
     [SerializeField] private float TearLength;
+    [SerializeField] private Collider2D m_collider;
     [Header("纸张")]
+    [SerializeField] private Sprite teared_sprite;  
     [SerializeField] private SpriteRenderer paper_tear;
     [SerializeField] private SpriteRenderer paper_stay;
     [SerializeField] private AnimationCurve OffsetCurve;
@@ -18,8 +20,9 @@ public class TearPaperPoint : MonoBehaviour
     private Vector3 endPos;
     private Vector3 initPosToPaper;
     private Vector3 tearPos;
-    bool initialized;
     public static int AngleID = Shader.PropertyToID("_FoldAngle");
+    bool initialized = false;
+    bool finished = false;
     void Awake(){
         tearPos = initPos = transform.position;
         tearDir = transform.right.normalized;
@@ -37,8 +40,23 @@ public class TearPaperPoint : MonoBehaviour
     void Update(){
         Vector3 diff = endPos - transform.position;
         if(Vector3.Dot(diff, tearDir)<endRange){
-            
+            if(!finished){
+                finished = true;
+                StartCoroutine(CoroutineFinished());
+            }
         }
+    }
+    IEnumerator CoroutineFinished(){
+        this.enabled = false;
+        m_collider.enabled = false;
+        EventHandler.Call_OnFinishCurrentTear();
+        for(float t=0; t<1; t+=Time.deltaTime){
+            MoveTheTearPoint(Vector2.down*40);
+            yield return null;
+        }
+        paper_tear.gameObject.SetActive(false);
+        paper_stay.sprite = teared_sprite;
+        gameObject.SetActive(false);
     }
     public void StartDragThisPoint(){}
     public void ReleaseThisPoint(){}
