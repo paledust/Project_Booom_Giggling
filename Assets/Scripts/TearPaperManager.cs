@@ -2,37 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class TearPaperManager : MonoBehaviour
+public class TearPaperManager : Singleton<TearPaperManager>
 {
-    [SerializeField] private FingerPutter[] fingerPutters;
     [SerializeField] private TearPaperPoint currentTearingPoint;
     [SerializeField] private float tearSpeed;
     private bool canTear = false;
-    [SerializeField] int counter = 0;
-    void Awake(){
-        fingerPutters = FindObjectsOfType<FingerPutter>();
-    }
     void OnEnable(){
-        EventHandler.E_OnPutOnFingers += SwitchTearing;
         EventHandler.E_OnFinishCurrentTear += ReleaseCurrentPoint;
     }
     void OnDisable(){
-        EventHandler.E_OnPutOnFingers -= SwitchTearing;
         EventHandler.E_OnFinishCurrentTear -= ReleaseCurrentPoint;
     }
-    void SwitchTearing(bool putOnFinger){
-        if(putOnFinger){
-            counter ++;
-        }
-        else{
-            counter --;
-        }
-
-        if(counter == fingerPutters.Length){
-            canTear = true;
-        }
-        else{
-            canTear = false;
+    public void SetCanTear(bool value){
+        canTear = value;
+        if(!canTear){
+            ReleaseCurrentPoint();
         }
     }
     void OnGrab(InputValue value){
