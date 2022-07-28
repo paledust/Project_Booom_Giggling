@@ -29,6 +29,7 @@ public class TearPaperPoint : MonoBehaviour
     }
     void OnEnable(){
         initPosToPaper = paper_tear.transform.position - transform.position;
+        Shader.SetGlobalVector(Service.DRAG_POINT_ID, new Vector4(initPos.x, initPos.y, initPos.z, 1));
     }
     void OnDisable(){
         Shader.SetGlobalVector(Service.DRAG_POINT_ID, new Vector4(initPos.x, initPos.y, initPos.z, 1));
