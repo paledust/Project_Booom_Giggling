@@ -41,6 +41,18 @@ public class TearPaperManager : Singleton<TearPaperManager>
         if(paperIndex<tearPapers.Length-1){
             StartCoroutine(CoroutineGoToNextPaper());
         }
+        else{
+            StartCoroutine(CoroutineStackUpAllPaper());
+        }
+    }
+    void ReleaseCurrentPoint(){
+        currentTearingPoint?.ReleaseThisPoint();
+        currentTearingPoint = null;        
+    }
+    void OnMousePosition(InputValue value){
+        if(canTear){
+            currentTearingPoint?.MoveTheTearPointToMousePos(value.Get<Vector2>());
+        }
     }
     IEnumerator CoroutineGoToNextPaper(){
         tearPapers[paperIndex].transform.parent.gameObject.SetActive(false);
@@ -48,18 +60,10 @@ public class TearPaperManager : Singleton<TearPaperManager>
         paperIndex ++;
         tearPapers[paperIndex].gameObject.SetActive(true);
     }
-    void ReleaseCurrentPoint(){
-        currentTearingPoint?.ReleaseThisPoint();
-        currentTearingPoint = null;        
-    }
-    // void OnMouseMove(InputValue value){
-    //     if(canTear){
-    //         currentTearingPoint?.MoveTheTearPoint(value.Get<Vector2>() * tearSpeed);
-    //     }
-    // }
-    void OnMousePosition(InputValue value){
-        if(canTear){
-            currentTearingPoint?.MoveTheTearPointToMousePos(value.Get<Vector2>());
+    IEnumerator CoroutineStackUpAllPaper(){
+        for(;paperIndex>=0;paperIndex--){
+            tearPapers[paperIndex].transform.parent.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }
