@@ -4,13 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //A basic C# Event System
+//这是一个C# Event类型，里面可以定义各种event，当某个地方调用"Call_"function时，所有注册了该event的function都会被调用。
+//注册的方法与delegate一致，可以直接用 +, -运算
+//注册的条件是，该function必须返回值为null，且参数接受的类型与顺序要和event Action里定义的完全一致。
+//Action本质上是一个返回值为void的delegate，"<>"里的内容相当于时delegate里的参数类型，可以定义多个参数，且为不同类型<int, float, bool>
+//*注意*，若需要注册某个event，一定要确保该对象被清除之前注销该event，否则会导致内存泄漏。常用的注册方式是在OnEnable注册，并在OnDisable注销
 public static class EventHandler
 {
-    //This is a test event and it's calling function
-    public static event Action<float> E_OnTestEvent;
-    public static void Call_OnTestEvent(float data){E_OnTestEvent?.Invoke(data);}
     public static event Action<bool> E_OnPutOnFingers;
     public static void Call_OnPutOnFingers(bool value){E_OnPutOnFingers?.Invoke(value);}
+    public static event Action E_OnFinishCurrentTear;
+    public static void Call_OnFinishCurrentTear(){E_OnFinishCurrentTear?.Invoke();}
+    public static event Action<PaperControl> E_OnStartANewPaper;
+    public static void Call_OnStartANewPaper(PaperControl paper){E_OnStartANewPaper?.Invoke(paper);}
+    public static event Action<TearPaperPoint, bool> E_OnReadyToTear;
+    public static void Call_OnReadyToTear(TearPaperPoint tearPoint, bool isReady){E_OnReadyToTear?.Invoke(tearPoint, isReady);}
 }
 
 //A More Strict Event System
