@@ -287,6 +287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3021108290341853676}
+  - component: {fileID: 4276447387574457256}
   m_Layer: 0
   m_Name: paperTearGroup
   m_TagString: Untagged
@@ -309,6 +310,52 @@ Transform:
   - {fileID: 3021108290126481150}
   - {fileID: 3021108290057212427}
   - {fileID: 3021108290076542274}
+  - {fileID: 1680223124984141299}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4276447387574457256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3021108290341853675}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689f56ae3156cdb46add234e2bc01f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandTarget: {fileID: 1680223124984141299}
+  tearPaperPoint: {fileID: 3021108290076542276}
+--- !u!1 &6710568619593026696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1680223124984141299}
+  m_Layer: 0
+  m_Name: LeftHandTrans
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1680223124984141299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710568619593026696}
+  m_LocalRotation: {x: -0, y: -0, z: -0.1928009, w: 0.9812379}
+  m_LocalPosition: {x: -5.2472315, y: -2.2298574, z: 0}
+  m_LocalScale: {x: 0.45199007, y: 0.45199007, z: 0.45199}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3021108290341853676}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -13,6 +13,8 @@ public static class EventHandler
     public static void Call_OnPutOnFingers(bool value){E_OnPutOnFingers?.Invoke(value);}
     public static event Action E_OnFinishCurrentTear;
     public static void Call_OnFinishCurrentTear(){E_OnFinishCurrentTear?.Invoke();}
+    public static event Action<PaperControl> E_OnStartANewPaper;
+    public static void Call_OnStartANewPaper(PaperControl paper){E_OnStartANewPaper?.Invoke(paper);}
 }
 
 //A More Strict Event System

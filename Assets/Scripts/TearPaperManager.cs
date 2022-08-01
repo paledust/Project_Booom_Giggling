@@ -4,17 +4,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class TearPaperManager : Singleton<TearPaperManager>
 {
-    [SerializeField] private TearPaperPoint[] tearPapers;
+    [SerializeField] private PaperControl[] paperControls;
     [SerializeField] private TearPaperPoint currentTearingPoint;
-    [SerializeField] private float tearSpeed;
+    // [SerializeField] private float tearSpeed;
     private bool canTear = false;
     private int paperIndex = 0;
     void OnEnable(){
-        tearPapers[paperIndex].gameObject.SetActive(true);
         EventHandler.E_OnFinishCurrentTear += FinishCurrentPaper;
     }
     void OnDisable(){
         EventHandler.E_OnFinishCurrentTear -= FinishCurrentPaper;
+    }
+    void Start(){
+        paperControls[paperIndex].StartThisPaper();
     }
     public void SetCanTear(bool value){
         canTear = value;
@@ -38,7 +40,7 @@ public class TearPaperManager : Singleton<TearPaperManager>
     }
     void FinishCurrentPaper(){
         ReleaseCurrentPoint();
-        if(paperIndex<tearPapers.Length-1){
+        if(paperIndex<paperControls.Length-1){
             StartCoroutine(CoroutineGoToNextPaper());
         }
         else{
@@ -55,14 +57,14 @@ public class TearPaperManager : Singleton<TearPaperManager>
         }
     }
     IEnumerator CoroutineGoToNextPaper(){
-        tearPapers[paperIndex].transform.parent.gameObject.SetActive(false);
+        paperControls[paperIndex].OnFinishThisPaper();
         yield return null;
         paperIndex ++;
-        tearPapers[paperIndex].gameObject.SetActive(true);
+        paperControls[paperIndex].StartThisPaper();
     }
     IEnumerator CoroutineStackUpAllPaper(){
         for(;paperIndex>=0;paperIndex--){
-            tearPapers[paperIndex].transform.parent.gameObject.SetActive(true);
+            paperControls[paperIndex].ShowLeftPaper();
             yield return new WaitForSeconds(0.2f);
         }
     }
