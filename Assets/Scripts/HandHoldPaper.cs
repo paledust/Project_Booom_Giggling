@@ -44,7 +44,6 @@ public class HandHoldPaper : MonoBehaviour
     }
     void RefreshHandTarget(PaperControl paper){
         handOnPos = false;
-        Debug.Log("ASDF");
         target = paper.LeftHandTarget;
     }
     IEnumerator coroutineMoveToTargetPos(){        

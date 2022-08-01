@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class TearPaperManager : Singleton<TearPaperManager>
 {
     [SerializeField] private PaperControl[] paperControls;
     [SerializeField] private TearPaperPoint currentTearingPoint;
+    public float tearingProgress{get{
+        if(currentTearingPoint==null) return 0;
+        else return currentTearingPoint.Progress;
+    }}
     // [SerializeField] private float tearSpeed;
     private bool canTear = false;
     private int paperIndex = 0;
@@ -28,7 +33,7 @@ public class TearPaperManager : Singleton<TearPaperManager>
         if(value.isPressed){
             Vector3 mousePoint = GameManager.mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Collider2D hit = Physics2D.OverlapCircle(mousePoint, 0.3f, Service.InteractableLayer);
-            if(hit!=null){
+            if(hit!=null && canTear){
                 currentTearingPoint = hit.GetComponent<TearPaperPoint>();
                 currentTearingPoint.StartDragThisPoint();
             }
@@ -68,4 +73,6 @@ public class TearPaperManager : Singleton<TearPaperManager>
             yield return new WaitForSeconds(0.2f);
         }
     }
+    [DllImport("user32.dll")]
+    static extern bool SetCursorPos(int x, int y);
 }

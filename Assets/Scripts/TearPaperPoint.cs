@@ -13,6 +13,7 @@ public class TearPaperPoint : MonoBehaviour
     [SerializeField] private AnimationCurve OffsetCurve;
     [Header("反馈")]
     [SerializeField] private float endRange = 0.1f;
+    public float Progress{get{return (transform.position-initPos).magnitude/(endPos-initPos).magnitude;}}
     private Color initcolor;
     private Vector3 initPos;
     private Vector3 tearDir;
@@ -54,7 +55,7 @@ public class TearPaperPoint : MonoBehaviour
         this.enabled = false;
         m_collider.enabled = false;
         for(float t=0; t<1; t+=Time.deltaTime){
-            MoveTheTearPoint(Vector2.down*40);
+            MoveTheTearPoint(tearDir*40);
             yield return null;
         }
         paper_tear.gameObject.SetActive(false);
@@ -63,10 +64,13 @@ public class TearPaperPoint : MonoBehaviour
         gameObject.SetActive(false);
     }
     public void StartDragThisPoint(){
+        EventHandler.Call_OnReadyToTear(this, true);
         paper_tear.material.SetFloat(TearID, 1);
         paper_stay.material.SetFloat(TearID, 1);
     }
-    public void ReleaseThisPoint(){}
+    public void ReleaseThisPoint(){
+        EventHandler.Call_OnReadyToTear(this, false);
+    }
     /// <summary>
     /// 此方法会根据鼠标指针的位置，实时更新纸张撕扯的进度
     /// </summary>
