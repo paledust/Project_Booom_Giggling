@@ -201,10 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6387251aee66f36499bf3460c8f5da80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tearPapers:
+  paperControls:
   - {fileID: 2111445366}
   currentTearingPoint: {fileID: 0}
-  tearSpeed: 5
 --- !u!114 &55925770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +572,7 @@ MonoBehaviour:
   - {fileID: 342117032}
   - {fileID: 1331760071}
   - {fileID: 222216062}
+  target: {fileID: 0}
 --- !u!1 &1331760068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,12 +1075,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2111445366 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3021108290076542276, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4276447387574457256, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
   m_PrefabInstance: {fileID: 2111445364}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1ec268c204af3c48ac3023ca4e9496c, type: 3}
+  m_Script: {fileID: 11500000, guid: 689f56ae3156cdb46add234e2bc01f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
