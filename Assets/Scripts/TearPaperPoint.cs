@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TearPaperPoint : MonoBehaviour
 {
+    [SerializeField] private PaperControl paper;
     [SerializeField] private float TearLength;
     [SerializeField] private Collider2D m_collider;
+    [SerializeField] private int tearChoice = 0;
     [Header("纸张")]
-    [SerializeField] private Sprite teared_sprite;  
     [SerializeField] private SpriteRenderer paper_tear;
     [SerializeField] private SpriteRenderer paper_stay;
     [SerializeField] private AnimationCurve OffsetCurve;
@@ -19,12 +20,13 @@ public class TearPaperPoint : MonoBehaviour
     private Vector3 tearDir;
     private Vector3 tearNormalDir;
     private Vector3 endPos;
-    private Vector3 initPosToPaper;
     private Vector3 tearPos;
     bool initialized = false;
     bool finished = false;
-    private static int AngleID = Shader.PropertyToID("_FoldAngle");
-    private static int TearID = Shader.PropertyToID("_Tearing");
+    bool StartTear = false;
+    private static int AngleID  = Shader.PropertyToID("_FoldAngle");
+    private static int TearID   = Shader.PropertyToID("_Tearing");
+    private static int UseGreenMaskID = Shader.PropertyToID("_UseGreenMask");
     void Awake(){
         tearPos = initPos = transform.position;
         tearDir = transform.right.normalized;
@@ -33,7 +35,6 @@ public class TearPaperPoint : MonoBehaviour
         initialized = true;
     }
     void OnEnable(){
-        initPosToPaper = paper_tear.transform.position - transform.position;
         float angle = Vector2.SignedAngle(tearDir, Vector2.right);
         paper_tear.material.SetFloat(AngleID, 270+angle);
         paper_stay.material.SetFloat(AngleID, 270+angle);
@@ -43,7 +44,14 @@ public class TearPaperPoint : MonoBehaviour
         Shader.SetGlobalVector(Service.DRAG_POINT_ID, new Vector4(initPos.x, initPos.y, initPos.z, 1));
     }
     void Update(){
+        if(!StartTear && Vector3.Distance(transform.position, initPos)>0.01f){
+            StartTear = true;
+            paper_tear.material.SetFloat(UseGreenMaskID, tearChoice);
+            paper_stay.material.SetFloat(UseGreenMaskID, tearChoice);
+            paper.ChoiseThisTearPoint(this);
+        }
         Vector3 diff = endPos - transform.position;
+        
         if(Vector3.Dot(diff, tearDir)<endRange){
             if(!finished){
                 finished = true;
@@ -59,7 +67,7 @@ public class TearPaperPoint : MonoBehaviour
             yield return null;
         }
         paper_tear.gameObject.SetActive(false);
-        paper_stay.sprite = teared_sprite;
+        paper_stay.material.SetFloat("_AfterTeared", 1);
         EventHandler.Call_OnFinishCurrentTear();
         gameObject.SetActive(false);
     }
@@ -89,8 +97,8 @@ public class TearPaperPoint : MonoBehaviour
         
         float angle = Vector2.SignedAngle(tearDir, Vector2.right);
         Vector3 tear_fold_diff = paper_tear.transform.position - foldPoint;
-        paper_tear.transform.position = tearPos + initPosToPaper;
-        paper_tear.transform.rotation = Quaternion.Euler(0, 0, 90+transform.eulerAngles.z);
+        // paper_tear.transform.position = tearPos + initPosToPaper;
+        // paper_tear.transform.rotation = Quaternion.Euler(0, 0, 90+transform.eulerAngles.z);
         
         paper_tear.material.SetFloat(AngleID, 270+angle);
         paper_stay.material.SetFloat(AngleID, 270+angle);
@@ -108,8 +116,7 @@ public class TearPaperPoint : MonoBehaviour
 
         float angle = Vector2.SignedAngle(tearDir, Vector2.right);
         Vector3 tear_fold_diff = paper_tear.transform.position - foldPoint;
-        paper_tear.transform.position = tearPos + initPosToPaper;
-        paper_tear.transform.rotation = Quaternion.Euler(0, 0, 90+transform.eulerAngles.z);
+        // paper_tear.transform.rotation = Quaternion.Euler(0, 0, 90+transform.eulerAngles.z);
 
         paper_tear.material.SetFloat(AngleID, 270+angle);
         paper_stay.material.SetFloat(AngleID, 270+angle);

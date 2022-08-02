@@ -12,6 +12,13 @@ public class PaperControl : MonoBehaviour
         foreach(var tearPoint in tearPaperPoints)
         tearPoint.gameObject.SetActive(true);
     }
+    public void ChoiseThisTearPoint(TearPaperPoint tearPoint){
+        foreach(var point in tearPaperPoints){
+            if(point!=tearPoint){
+                point.gameObject.SetActive(false);
+            }
+        }
+    }
     public void OnFinishThisPaper(){
         gameObject.SetActive(false);
     }

@@ -70,7 +70,7 @@ public class TearPaperManager : Singleton<TearPaperManager>
     IEnumerator CoroutineStackUpAllPaper(){
         for(;paperIndex>=0;paperIndex--){
             paperControls[paperIndex].ShowLeftPaper();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
     [DllImport("user32.dll")]

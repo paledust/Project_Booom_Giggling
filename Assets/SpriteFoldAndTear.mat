@@ -79,6 +79,7 @@ Material:
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
+    - _AfterTeared: 0
     - _BumpScale: 1
     - _CHOICE: 0
     - _CLIP_Y: 5.77
@@ -103,6 +104,7 @@ Material:
     - _SrcBlend: 1
     - _Tearing: 0
     - _UVSec: 0
+    - _UseGreenMask: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
