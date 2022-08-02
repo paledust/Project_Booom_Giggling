@@ -71,8 +71,15 @@ public class TearPaperPoint : MonoBehaviour
         EventHandler.Call_OnFinishCurrentTear();
         gameObject.SetActive(false);
     }
+    public void SetUpTextures(Texture2D tex){
+        paper_tear.material.SetTexture("_TearMask", tex);
+    }
     public void StartDragThisPoint(){
+        Shader.SetGlobalVector(Service.DRAG_POINT_ID, new Vector4(initPos.x, initPos.y, initPos.z, 1));
         EventHandler.Call_OnReadyToTear(this, true);
+        float angle = Vector2.SignedAngle(tearDir, Vector2.right);
+        paper_tear.material.SetFloat(AngleID, 270+angle);
+        paper_stay.material.SetFloat(AngleID, 270+angle);
         paper_tear.material.SetFloat(TearID, 1);
         paper_stay.material.SetFloat(TearID, 1);
     }

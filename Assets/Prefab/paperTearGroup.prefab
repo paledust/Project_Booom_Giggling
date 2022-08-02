@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 99c9e3c9577e26847908d3bfec8d5a1e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.56924176, g: 0.6132076, b: 0.6117834, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -160,7 +160,6 @@ MonoBehaviour:
   TearLength: 9.11
   m_collider: {fileID: 3021108290076542275}
   tearChoice: 0
-  teared_sprite: {fileID: 21300000, guid: 6f610c9570a9c8c41ad289576e81eb12, type: 3}
   paper_tear: {fileID: 3021108290057212429}
   paper_stay: {fileID: 3021108290126481149}
   OffsetCurve:
@@ -271,7 +270,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 99c9e3c9577e26847908d3bfec8d5a1e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.56924176, g: 0.6132076, b: 0.6117834, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -331,6 +330,8 @@ MonoBehaviour:
   leftHandTarget: {fileID: 1680223124984141299}
   tearPaperPoints:
   - {fileID: 3021108290076542276}
+  tearTexture: {fileID: 2800000, guid: 17b78c25296033a44868bd92734def64, type: 3}
+  paperStay: {fileID: 3021108290126481149}
 --- !u!1 &6710568619593026696
 GameObject:
   m_ObjectHideFlags: 0
