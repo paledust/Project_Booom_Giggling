@@ -6,7 +6,7 @@ public class HandHoldPaper : MonoBehaviour
 {
     [SerializeField] private FingerPutter[] fingers;
     [SerializeField] private Transform target;
-    private int fingerCounter = 0;
+    [SerializeField] private int fingerCounter = 0;
     private bool allFingerOn = false;
     private bool handOnPos = false;
     void OnEnable(){

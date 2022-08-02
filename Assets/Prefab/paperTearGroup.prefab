@@ -327,7 +327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftHandTarget: {fileID: 1680223124984141299}
-  tearPaperPoint: {fileID: 3021108290076542276}
+  tearPaperPoints:
+  - {fileID: 3021108290076542276}
 --- !u!1 &6710568619593026696
 GameObject:
   m_ObjectHideFlags: 0

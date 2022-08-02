@@ -5,11 +5,12 @@ using UnityEngine;
 public class PaperControl : MonoBehaviour
 {
     [SerializeField] private Transform leftHandTarget;
-    [SerializeField] private TearPaperPoint tearPaperPoint;
+    [SerializeField] private TearPaperPoint[] tearPaperPoints;
     public Transform LeftHandTarget{get{return leftHandTarget;}}
     public void StartThisPaper(){
         EventHandler.Call_OnStartANewPaper(this);
-        tearPaperPoint.gameObject.SetActive(true);
+        foreach(var tearPoint in tearPaperPoints)
+        tearPoint.gameObject.SetActive(true);
     }
     public void OnFinishThisPaper(){
         gameObject.SetActive(false);
