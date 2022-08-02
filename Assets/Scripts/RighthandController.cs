@@ -9,14 +9,12 @@ public class RighthandController : MonoBehaviour
     Vector3 initialPosition;
     Quaternion lastRot;
     Vector3 lastPos;
+    [SerializeField] private RIGHT_HAND_STATE handState = RIGHT_HAND_STATE.RELEASED;
     public Sprite sprite1;
     public Sprite sprite2;
-    private int handState = 0; 
-
-
-
-    // Start is called before the first frame update
-    Transform snapTarget;
+    private SpriteRenderer spriteRenderer;
+    private Transform snapTarget;
+    void Awake(){spriteRenderer = GetComponent<SpriteRenderer>();}
     void OnEnable(){EventHandler.E_OnReadyToTear += SnapRightHand;}
     void OnDisable(){EventHandler.E_OnReadyToTear -= SnapRightHand;}
     void Start()
@@ -30,7 +28,6 @@ public class RighthandController : MonoBehaviour
         SnapToTarget();
 
         HandStateChange();
-
     }
 
     void RighthandMove()
@@ -41,20 +38,15 @@ public class RighthandController : MonoBehaviour
     }
     
     void HandStateChange(){
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
         if(Mouse.current.leftButton.isPressed){
-            handState = 1;
-        }else handState = 0;
-
-        if (handState == 0) {
-            renderer.sprite = this.sprite1;
-        } else renderer.sprite = this.sprite2;
-    
+            handState = RIGHT_HAND_STATE.HOLD;
+            spriteRenderer.sprite = this.sprite2;
+        }else if(Mouse.current.leftButton.wasReleasedThisFrame) {
+            handState = RIGHT_HAND_STATE.RELEASED;
+            spriteRenderer.sprite = this.sprite1;
+        }
     }
 
-
-    //     transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    // }
     void SnapToTarget(){
         if(snapTarget != null){
             Vector3 targetPos = snapTarget.position;

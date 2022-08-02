@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #region EnumCollection
-public enum TestENUM{ONE = 1, TWO = 2, THREE = 3}
+public enum RIGHT_HAND_STATE{RELEASED=0, HOLD=1}
 #endregion
