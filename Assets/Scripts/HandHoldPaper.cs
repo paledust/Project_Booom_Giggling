@@ -7,6 +7,8 @@ public class HandHoldPaper : MonoBehaviour
     [SerializeField] private FingerPutter[] fingers;
     [SerializeField] private Transform target;
     [SerializeField] private int fingerCounter = 0;
+    [SerializeField] private SpriteRenderer palmRenderer;
+    [SerializeField] private GameObject handPressed;
     private bool allFingerOn = false;
     private bool handOnPos = false;
     void OnEnable(){
@@ -32,12 +34,22 @@ public class HandHoldPaper : MonoBehaviour
         if(fingerCounter == fingers.Length){
             if(!allFingerOn){
                 allFingerOn = true;
+                palmRenderer.enabled = false;
+                foreach(var finger in fingers){
+                    finger.SwitchSpriteRender(false);
+                }
+                handPressed.SetActive(true);
                 TearPaperManager.Instance.SetCanTear(allFingerOn);
             }
         }
         else{
             if(allFingerOn){
                 allFingerOn = false;
+                palmRenderer.enabled = true;
+                foreach(var finger in fingers){
+                    finger.SwitchSpriteRender(true);
+                }
+                handPressed.SetActive(false);
                 TearPaperManager.Instance.SetCanTear(allFingerOn);
             }
         }        
