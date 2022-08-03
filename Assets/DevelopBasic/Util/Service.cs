@@ -9,6 +9,7 @@ public static class Service
     public static string TestString = "This is a test string, to show how you can use string in service.";
     public static LayerMask InteractableLayer = 1 << LayerMask.NameToLayer("Interactable"); //TO Do: Name whatever the interactable layer should be
     public static int DRAG_POINT_ID = Shader.PropertyToID("DRAG_POINT");
+    public static int DEBUG_ID = Shader.PropertyToID("DEBUG");
 #endregion
 #region HelpFunction
     /// <summary>

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3021108290057212427}
   - component: {fileID: 3021108290057212429}
   m_Layer: 0
-  m_Name: papers-Tear
+  m_Name: photo-Tear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 7.32, y: 5.175}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3021108290076542272
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3021108290076542275}
   - component: {fileID: 3021108290076542276}
   m_Layer: 3
-  m_Name: TearPaperPoint
+  m_Name: TearPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 3021108290126481150}
   - component: {fileID: 3021108290126481149}
   m_Layer: 0
-  m_Name: papers-Stay
+  m_Name: photo-Stay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ SpriteRenderer:
   m_Size: {x: 14.360001, y: 11.4800005}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3021108290341853675
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 3021108290341853676}
   - component: {fileID: 4276447387574457256}
   m_Layer: 0
-  m_Name: paperTearGroup
+  m_Name: TearGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
