@@ -6,9 +6,11 @@ public class FingerPutter : MonoBehaviour
 {
     [SerializeField] private float ScaledDown = 0.9f;
     [SerializeField] private Key key;
+    private SpriteRenderer spriteRenderer;
     private Vector3 initScale;
     private bool pressed = false;
     void Awake(){
+        spriteRenderer = GetComponent<SpriteRenderer>();
         initScale = transform.localScale;
     }
     void Update(){
@@ -26,5 +28,8 @@ public class FingerPutter : MonoBehaviour
             transform.localScale = initScale;
             EventHandler.Call_OnPutOnFingers(false);
         }
+    }
+    public void SwitchSpriteRender(bool isOn){
+        spriteRenderer.enabled = isOn;
     }
 }
