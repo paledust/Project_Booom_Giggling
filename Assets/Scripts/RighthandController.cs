@@ -33,8 +33,8 @@ public class RighthandController : MonoBehaviour
     void RighthandMove()
     {
         Vector3 pos = GameManager.mainCam.WorldToScreenPoint(transform.position);
-        Vector3 m_MousePos = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, pos.z);
-        transform.position = GameManager.mainCam.ScreenToWorldPoint(m_MousePos);
+        Vector3 mousePos = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, pos.z);
+        transform.position = GameManager.mainCam.ScreenToWorldPoint(mousePos);
     }
     
     void HandStateChange(){
