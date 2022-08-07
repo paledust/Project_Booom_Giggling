@@ -6,9 +6,10 @@ public class HandStateControl : MonoBehaviour
 {
     [SerializeField] private Animation handStateAnime;
     [SerializeField] private AnimationClip outAnimeClip;
-    void OnEnable()=>EventHandler.E_OnSwitchHand += StickHandOut;
-    void OnDisable()=>EventHandler.E_OnSwitchHand -= StickHandOut;
-    void StickHandOut(bool isOut){
-        handStateAnime.Play(outAnimeClip.name);
+    [SerializeField] private AnimationClip inAnimeClip;
+    void OnEnable()=>EventHandler.E_OnSwitchHand += PlayHandAnimation;
+    void OnDisable()=>EventHandler.E_OnSwitchHand -= PlayHandAnimation;
+    void PlayHandAnimation(bool isOut){
+        handStateAnime.Play(isOut?outAnimeClip.name:inAnimeClip.name);
     }
 }

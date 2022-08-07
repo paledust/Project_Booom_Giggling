@@ -68,7 +68,7 @@ public class TearPaperPoint : MonoBehaviour
         }
         paper_tear.gameObject.SetActive(false);
         paper_stay.material.SetFloat("_AfterTeared", 1);
-        EventHandler.Call_OnFinishCurrentTear();
+        paper.FinishThisPaper();
         gameObject.SetActive(false);
     }
     public void SetUpTextures(Texture2D tex){

@@ -5,10 +5,10 @@ using UnityEngine;
 public class HandHoldPaper : MonoBehaviour
 {
     [SerializeField] private FingerPutter[] fingers;
-    [SerializeField] private Transform target;
     [SerializeField] private int fingerCounter = 0;
     [SerializeField] private SpriteRenderer palmRenderer;
     [SerializeField] private GameObject handPressed;
+    private Transform target;
     private bool allFingerOn = false;
     private bool handOnPos = false;
     void OnEnable(){
@@ -55,13 +55,15 @@ public class HandHoldPaper : MonoBehaviour
         }        
     }
     void RefreshHandTarget(PaperControl paper){
+        Debug.Log(paper);
         handOnPos = false;
-        target = paper.LeftHandTarget;
     }
     IEnumerator coroutineMoveToTargetPos(){        
         float lerp = 0;
         Vector3 initpos = transform.position;
         Quaternion initRot = transform.rotation;
+        target = TearPaperManager.Instance.CurrentPaperControl.LeftHandTarget;
+
         for(float t=0; t<1; t+=Time.deltaTime*8){
             lerp = Mathf.Lerp(0, 1, EasingFunc.Easing.QuadEaseOut(t));
             transform.position = Vector3.Lerp(initpos, target.position, lerp);

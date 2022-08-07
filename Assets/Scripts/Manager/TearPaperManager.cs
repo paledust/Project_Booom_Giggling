@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class TearPaperManager : Singleton<TearPaperManager>
 {
-    [SerializeField] private PaperControl[] paperControls;
+    public PaperControl CurrentPaperControl{get{return currentPaperControl;}}
+    [SerializeField] private PaperControl currentPaperControl;
     [SerializeField] private TearPaperPoint currentTearingPoint;
     public float tearingProgress{get{
         if(currentTearingPoint==null) return 0;
@@ -15,13 +16,12 @@ public class TearPaperManager : Singleton<TearPaperManager>
     private bool canTear = false;
     private int paperIndex = 0;
     void OnEnable(){
+        EventHandler.E_OnStartANewPaper += SetCurrentPaperControl;
         EventHandler.E_OnFinishCurrentTear += FinishCurrentPaper;
     }
     void OnDisable(){
+        EventHandler.E_OnStartANewPaper += SetCurrentPaperControl;
         EventHandler.E_OnFinishCurrentTear -= FinishCurrentPaper;
-    }
-    void Start(){
-        paperControls[paperIndex].StartThisPaper();
     }
     public void SetCanTear(bool value){
         canTear = value;
@@ -43,14 +43,11 @@ public class TearPaperManager : Singleton<TearPaperManager>
             currentTearingPoint = null;
         }
     }
-    void FinishCurrentPaper(){
+    void SetCurrentPaperControl(PaperControl paper){
+        currentPaperControl = paper;
+    }
+    void FinishCurrentPaper(PaperControl paper){
         ReleaseCurrentPoint();
-        if(paperIndex<paperControls.Length-1){
-            StartCoroutine(CoroutineGoToNextPaper());
-        }
-        else{
-            StartCoroutine(CoroutineStackUpAllPaper());
-        }
     }
     void ReleaseCurrentPoint(){
         currentTearingPoint?.ReleaseThisPoint();
@@ -59,18 +56,6 @@ public class TearPaperManager : Singleton<TearPaperManager>
     void OnMousePosition(InputValue value){
         if(canTear){
             currentTearingPoint?.MoveTheTearPointToMousePos(value.Get<Vector2>());
-        }
-    }
-    IEnumerator CoroutineGoToNextPaper(){
-        paperControls[paperIndex].OnFinishThisPaper();
-        yield return null;
-        paperIndex ++;
-        paperControls[paperIndex].StartThisPaper();
-    }
-    IEnumerator CoroutineStackUpAllPaper(){
-        for(;paperIndex>=0;paperIndex--){
-            paperControls[paperIndex].ShowLeftPaper();
-            yield return new WaitForSeconds(0.5f);
         }
     }
     [DllImport("user32.dll")]
