@@ -44,16 +44,14 @@ public class PaperControl : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    IEnumerator PaperFadeOut(Transform target)
-    {
+    // IEnumerator PaperFadeOut(Transform target)
+    // {
 
 
-        spriteRenderer.color = new Color(
-            spriteRenderer.color.r,
-            spriteRenderer.color.g, 
-            spriteRenderer.color.b,
-
-
-            )
-    }
+    //     spriteRenderer.color = new Color(
+    //         spriteRenderer.color.r,
+    //         spriteRenderer.color.g, 
+    //         spriteRenderer.color.b,
+    //         )
+    // }
 }
