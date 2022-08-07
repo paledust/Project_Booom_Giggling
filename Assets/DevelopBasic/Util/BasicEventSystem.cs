@@ -19,6 +19,8 @@ public static class EventHandler
     public static void Call_OnStartANewPaper(PaperControl paper){E_OnStartANewPaper?.Invoke(paper);}
     public static event Action<TearPaperPoint, bool> E_OnReadyToTear;
     public static void Call_OnReadyToTear(TearPaperPoint tearPoint, bool isReady){E_OnReadyToTear?.Invoke(tearPoint, isReady);}
+    public static event Action<bool> E_OnSwitchHand;
+    public static void Call_OnSwitchHand(bool isStickOut){E_OnSwitchHand?.Invoke(isStickOut);}
 }
 
 //A More Strict Event System

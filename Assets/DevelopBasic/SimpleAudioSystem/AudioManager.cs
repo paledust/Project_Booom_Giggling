@@ -11,6 +11,8 @@ namespace SimpleAudioSystem{
         private AudioSource ambience_loop;
         [SerializeField]
         private AudioSource music_loop;
+        [SerializeField]
+        private AudioSource sfx;
         string current_ambience_name = string.Empty;
         string current_music_name = string.Empty;
 
@@ -34,6 +36,12 @@ namespace SimpleAudioSystem{
             ambience_loop.clip = audioInfo.GetAudioClipByName(audio_name);
             if(ambience_loop.clip != null)
                 ambience_loop.Play();
+        }
+        public void PlayClip(AudioClip clip, float volumeScale){
+            sfx.PlayOneShot(clip, volumeScale);
+        }
+        public void PlayRndClips(AudioClip[] clips, float volumeScale){
+            sfx.PlayRandomClipFromClips(clips, volumeScale);
         }
         //TO DO: Maybe adding a function to do cross fading between two different clips
     }
