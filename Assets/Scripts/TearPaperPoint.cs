@@ -62,10 +62,12 @@ public class TearPaperPoint : MonoBehaviour
     IEnumerator CoroutineFinished(){
         this.enabled = false;
         m_collider.enabled = false;
+        TearPaperManager.Instance.StartPlayingTearLoop();
         for(float t=0; t<1; t+=Time.deltaTime){
             MoveTheTearPoint(tearDir*40);
             yield return null;
         }
+        TearPaperManager.Instance.StopPlayingTearLoop();
         paper_tear.gameObject.SetActive(false);
         paper_stay.material.SetFloat("_AfterTeared", 1);
         paper.FinishThisPaper();
@@ -87,6 +89,7 @@ public class TearPaperPoint : MonoBehaviour
     }
     public void ReleaseThisPoint(){
         EventHandler.Call_OnReadyToTear(this, false);
+        TearPaperManager.Instance.StopPlayingTearLoop();
     }
     /// <summary>
     /// 此方法会根据鼠标指针的位置，实时更新纸张撕扯的进度
@@ -100,6 +103,10 @@ public class TearPaperPoint : MonoBehaviour
         // if(Vector3.Dot(tearPos-lastTearPos, tearDir)<=0){
         //     tearPos = lastTearPos;
         // }
+        if(Vector3.Distance(transform.position, tearPos)>0.01f){
+            TearPaperManager.Instance.StartPlayingTearLoop();
+        }
+
         transform.position = tearPos;
 
         Vector3 foldPoint = (initPos + transform.position)/2f;

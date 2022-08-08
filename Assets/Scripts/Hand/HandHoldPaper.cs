@@ -8,6 +8,9 @@ public class HandHoldPaper : MonoBehaviour
     [SerializeField] private int fingerCounter = 0;
     [SerializeField] private SpriteRenderer palmRenderer;
     [SerializeField] private GameObject handPressed;
+    [SerializeField] private AudioSource putFingerAudio;
+    [SerializeField] private AudioClip fingerClip;
+    [SerializeField] private AudioClip pressOnClip;
     private Transform target;
     private bool allFingerOn = false;
     private bool handOnPos = false;
@@ -22,6 +25,8 @@ public class HandHoldPaper : MonoBehaviour
     public void TestFingers(bool putOnFinger){
         if(putOnFinger){
             fingerCounter ++;
+            putFingerAudio.pitch = Random.Range(0.9f,1.1f);
+            putFingerAudio.PlayOneShot(fingerClip);
             if(!handOnPos){
                 handOnPos = false;
                 StartCoroutine(coroutineMoveToTargetPos());
@@ -39,6 +44,7 @@ public class HandHoldPaper : MonoBehaviour
                     finger.SwitchSpriteRender(false);
                 }
                 handPressed.SetActive(true);
+                putFingerAudio.PlayOneShot(pressOnClip);
                 TearPaperManager.Instance.SetCanTear(allFingerOn);
             }
         }

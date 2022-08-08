@@ -10,6 +10,8 @@ public class RighthandController : MonoBehaviour
     Quaternion lastRot;
     Vector3 lastPos;
     [SerializeField] private RIGHT_HAND_STATE handState = RIGHT_HAND_STATE.RELEASED;
+    [SerializeField] private AudioSource m_audio;
+    [SerializeField] private AudioClip wooshClip;
     public Sprite sprite1;
     public Sprite sprite2;
     private SpriteRenderer spriteRenderer;
@@ -67,6 +69,7 @@ public class RighthandController : MonoBehaviour
         }
     }
     IEnumerator coroutineSnapHand(Transform target){
+        m_audio.PlayOneShot(wooshClip);
         Vector3 initPos   = transform.position;
         Quaternion initRot = transform.rotation;
 
