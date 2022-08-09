@@ -7,6 +7,8 @@ public class TearPaperManager : Singleton<TearPaperManager>
 {
     public PaperControl CurrentPaperControl{get{return currentPaperControl;}}
     [SerializeField] private AudioSource tearAudio;
+    public Transform rightHandReadyTrans;
+    public Transform leftHandReadyTrans;
     private PaperControl currentPaperControl;
     private TearPaperPoint currentTearingPoint;
     public float tearingProgress{get{
@@ -68,6 +70,7 @@ public class TearPaperManager : Singleton<TearPaperManager>
         currentPaperControl = paper;
     }
     void FinishCurrentPaper(PaperControl paper){
+        EventHandler.Call_OnResetHand();
         ReleaseCurrentPoint();
     }
     void ReleaseCurrentPoint(){

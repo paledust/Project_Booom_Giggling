@@ -6,6 +6,7 @@ using UnityEditor;
 public class TearPaperManagerInspector : Editor
 {
     private static bool DebugMode = false;
+    private static bool HollowMode  = false;
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -14,6 +15,11 @@ public class TearPaperManagerInspector : Editor
         if(GUILayout.Button("Toggle Shader Debug Mode")){
             DebugMode = !DebugMode;
             Shader.SetGlobalInt(Service.DEBUG_ID, DebugMode?1:0);
+            SceneView.RepaintAll();
+        }
+        if(GUILayout.Button("Toggle Shader Hollow Mode")){
+            HollowMode = !HollowMode;
+            Shader.SetGlobalInt(Service.HOLLOW_ID, HollowMode?1:0);
             SceneView.RepaintAll();
         }
     }

@@ -17,10 +17,12 @@ public class HandHoldPaper : MonoBehaviour
     void OnEnable(){
         EventHandler.E_OnPutOnFingers += TestFingers;
         EventHandler.E_OnStartANewPaper += RefreshHandTarget;
+        EventHandler.E_OnResetHand      += ResetHand;
     }
     void OnDisable(){
         EventHandler.E_OnPutOnFingers -= TestFingers;
         EventHandler.E_OnStartANewPaper -= RefreshHandTarget;
+        EventHandler.E_OnResetHand      -= ResetHand;
     }
     public void TestFingers(bool putOnFinger){
         if(putOnFinger){
@@ -29,7 +31,7 @@ public class HandHoldPaper : MonoBehaviour
             putFingerAudio.PlayOneShot(fingerClip);
             if(!handOnPos){
                 handOnPos = false;
-                StartCoroutine(coroutineMoveToTargetPos());
+                StartCoroutine(coroutineMoveToTargetPos(TearPaperManager.Instance.CurrentPaperControl.LeftHandTarget));
             }
         }
         else{
@@ -61,22 +63,23 @@ public class HandHoldPaper : MonoBehaviour
         }        
     }
     void RefreshHandTarget(PaperControl paper){
-        Debug.Log(paper);
         handOnPos = false;
     }
-    IEnumerator coroutineMoveToTargetPos(){        
+    void ResetHand(){
+        StartCoroutine(coroutineMoveToTargetPos(TearPaperManager.Instance.rightHandReadyTrans));
+    }
+    IEnumerator coroutineMoveToTargetPos(Transform targetTrans){        
         float lerp = 0;
         Vector3 initpos = transform.position;
         Quaternion initRot = transform.rotation;
-        target = TearPaperManager.Instance.CurrentPaperControl.LeftHandTarget;
 
         for(float t=0; t<1; t+=Time.deltaTime*8){
             lerp = Mathf.Lerp(0, 1, EasingFunc.Easing.QuadEaseOut(t));
-            transform.position = Vector3.Lerp(initpos, target.position, lerp);
-            transform.rotation = Quaternion.Lerp(initRot, target.rotation, lerp);
+            transform.position = Vector3.Lerp(initpos, targetTrans.position, lerp);
+            transform.rotation = Quaternion.Lerp(initRot, targetTrans.rotation, lerp);
             yield return null;
         }
-        transform.position = target.position;
-        transform.rotation = target.rotation;
+        transform.position = targetTrans.position;
+        transform.rotation = targetTrans.rotation;
     }
 }

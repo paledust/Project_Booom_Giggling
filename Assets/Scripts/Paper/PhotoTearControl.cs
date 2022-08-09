@@ -6,7 +6,10 @@ public class PhotoTearControl : MonoBehaviour
 {
     [SerializeField] private PaperControl[] paperControls;
     [SerializeField] private Animation photoTearAnimation;
+    [SerializeField] private AudioSource giggleAudio;
+    [SerializeField] private AudioClip[] giggleClips;
     private int paperIndex = 0;
+    void Awake(){paperControls = GetComponentsInChildren<PaperControl>();}
     void OnEnable(){
         EventHandler.E_OnFinishCurrentTear += FinishCurrentPaper;
         photoTearAnimation.Play();
@@ -15,6 +18,7 @@ public class PhotoTearControl : MonoBehaviour
         EventHandler.E_OnFinishCurrentTear -= FinishCurrentPaper;
     }
     void FinishCurrentPaper(PaperControl paper){
+        giggleAudio.PlayRandomClipFromClips(giggleClips);
         if(paperIndex<paperControls.Length-1){
             StartCoroutine(CoroutineGoToNextPaper());
         }

@@ -21,6 +21,8 @@ public static class EventHandler
     public static void Call_OnReadyToTear(TearPaperPoint tearPoint, bool isReady){E_OnReadyToTear?.Invoke(tearPoint, isReady);}
     public static event Action<bool> E_OnSwitchHand;
     public static void Call_OnSwitchHand(bool isStickOut){E_OnSwitchHand?.Invoke(isStickOut);}
+    public static event Action E_OnResetHand;
+    public static void Call_OnResetHand(){E_OnResetHand?.Invoke();}
 }
 
 //A More Strict Event System

@@ -17,8 +17,14 @@ public class RighthandController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Transform snapTarget;
     void Awake(){spriteRenderer = GetComponent<SpriteRenderer>();}
-    void OnEnable(){EventHandler.E_OnReadyToTear += SnapRightHand;}
-    void OnDisable(){EventHandler.E_OnReadyToTear -= SnapRightHand;}
+    void OnEnable(){
+        EventHandler.E_OnReadyToTear += SnapRightHand;
+        EventHandler.E_OnResetHand   += ResetHand;
+    }
+    void OnDisable(){
+        EventHandler.E_OnReadyToTear -= SnapRightHand;
+        EventHandler.E_OnResetHand   -= ResetHand;
+    }
     void Start()
     {
         Cursor.visible = false;
@@ -67,6 +73,9 @@ public class RighthandController : MonoBehaviour
         else{
             snapTarget = null;
         }
+    }
+    void ResetHand(){
+        StartCoroutine(coroutineSnapHand(TearPaperManager.Instance.leftHandReadyTrans));
     }
     IEnumerator coroutineSnapHand(Transform target){
         m_audio.PlayOneShot(wooshClip);
