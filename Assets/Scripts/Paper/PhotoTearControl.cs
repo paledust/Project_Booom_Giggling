@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class PhotoTearControl : MonoBehaviour
 {
-    private PaperControl[] paperControls;
+    [SerializeField] private PaperControl[] paperControls;
     [SerializeField] private Animation photoTearAnimation;
     private int paperIndex = 0;
-    void Awake(){
-        paperControls = GetComponentsInChildren<PaperControl>();
-    }
     void OnEnable(){
         EventHandler.E_OnFinishCurrentTear += FinishCurrentPaper;
         photoTearAnimation.Play();
@@ -36,6 +33,7 @@ public class PhotoTearControl : MonoBehaviour
         paperControls[paperIndex].StartThisPaper();
     }
     IEnumerator CoroutineStackUpAllPaper(){
+        EventHandler.Call_OnSwitchHand(false);
         for(;paperIndex>=0;paperIndex--){
             paperControls[paperIndex].ShowLeftPaper();
             yield return new WaitForSeconds(0.5f);
