@@ -66,7 +66,7 @@ public class HandHoldPaper : MonoBehaviour
         handOnPos = false;
     }
     void ResetHand(){
-        StartCoroutine(coroutineMoveToTargetPos(TearPaperManager.Instance.rightHandReadyTrans));
+        StartCoroutine(coroutineMoveToTargetPos(TearPaperManager.Instance.leftHandReadyTrans));
     }
     IEnumerator coroutineMoveToTargetPos(Transform targetTrans){        
         float lerp = 0;

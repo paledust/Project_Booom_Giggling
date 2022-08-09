@@ -19,11 +19,9 @@ public class RighthandController : MonoBehaviour
     void Awake(){spriteRenderer = GetComponent<SpriteRenderer>();}
     void OnEnable(){
         EventHandler.E_OnReadyToTear += SnapRightHand;
-        EventHandler.E_OnResetHand   += ResetHand;
     }
     void OnDisable(){
         EventHandler.E_OnReadyToTear -= SnapRightHand;
-        EventHandler.E_OnResetHand   -= ResetHand;
     }
     void Start()
     {
@@ -74,9 +72,7 @@ public class RighthandController : MonoBehaviour
             snapTarget = null;
         }
     }
-    void ResetHand(){
-        StartCoroutine(coroutineSnapHand(TearPaperManager.Instance.leftHandReadyTrans));
-    }
+
     IEnumerator coroutineSnapHand(Transform target){
         m_audio.PlayOneShot(wooshClip);
         Vector3 initPos   = transform.position;
