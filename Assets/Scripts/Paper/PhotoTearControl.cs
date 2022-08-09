@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PhotoTearControl : MonoBehaviour
 {
-    [SerializeField] private PaperControl[] paperControls;
+    private PaperControl[] paperControls;
     [SerializeField] private Animation photoTearAnimation;
     private int paperIndex = 0;
+    void Awake(){
+        paperControls = GetComponentsInChildren<PaperControl>();
+    }
     void OnEnable(){
         EventHandler.E_OnFinishCurrentTear += FinishCurrentPaper;
         photoTearAnimation.Play();
