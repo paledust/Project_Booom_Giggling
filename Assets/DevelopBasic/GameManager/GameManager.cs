@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 //Please make sure "GameManager" is excuted before every custom script
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private int TargetFrameRate = 60;
+    [SerializeField] private bool LoadInitScene = false;
     public static Camera mainCam;
     private static bool isSwitchingScene = false;
     private static bool isPaused = false;
@@ -14,9 +14,7 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         GameManager.mainCam = Camera.main;
-        Application.targetFrameRate = TargetFrameRate;
-        transform.parent = null;
-        DontDestroyOnLoad(gameObject);
+        SceneManager.LoadSceneAsync("Level-0", LoadSceneMode.Additive);
     }
     public void SwitchingScene(string from, string to){
         if(!isSwitchingScene){
