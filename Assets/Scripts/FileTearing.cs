@@ -5,6 +5,7 @@ using UnityEngine;
 public class FileTearing : MonoBehaviour
 {
     [SerializeField] private GameController gameController;
+    [SerializeField] private AudioSource pourAudio;
     [SerializeField] private Animation enterAnimation;
     [SerializeField] private AnimationClip exitClip;
     [SerializeField] private PaperControl file;
@@ -28,9 +29,15 @@ public class FileTearing : MonoBehaviour
             StartCoroutine(coroutinePlayFinalAnimation());
         }
     }
+    void PlayPourSound(){
+        pourAudio.Play();
+    }
+    void PlayClip(AudioClip clip){
+        pourAudio.PlayOneShot(clip);
+    }
     IEnumerator coroutinePlayFinalAnimation(){
         EventHandler.Call_OnSwitchHand(false);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(.5f);
         enterAnimation.Play(exitClip.name);
     }
 }
