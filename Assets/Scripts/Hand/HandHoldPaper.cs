@@ -27,15 +27,17 @@ public class HandHoldPaper : MonoBehaviour
     public void TestFingers(bool putOnFinger){
         if(putOnFinger){
             fingerCounter ++;
+            fingerCounter = Mathf.Min(5, fingerCounter);
             putFingerAudio.pitch = Random.Range(0.9f,1.1f);
             putFingerAudio.PlayOneShot(fingerClip);
             if(!handOnPos){
                 handOnPos = false;
-                StartCoroutine(coroutineMoveToTargetPos(TearPaperManager.Instance.CurrentPaperControl.LeftHandTarget));
+                StartCoroutine(coroutineMoveToTargetPos(DragManager.Instance.CurrentPaperControl.LeftHandTarget));
             }
         }
         else{
             fingerCounter --;
+            fingerCounter = Mathf.Max(0, fingerCounter);
         }
 
         if(fingerCounter == fingers.Length){
@@ -47,7 +49,7 @@ public class HandHoldPaper : MonoBehaviour
                 }
                 handPressed.SetActive(true);
                 putFingerAudio.PlayOneShot(pressOnClip);
-                TearPaperManager.Instance.SetCanTear(allFingerOn);
+                DragManager.Instance.SetCanTear(allFingerOn);
             }
         }
         else{
@@ -58,7 +60,7 @@ public class HandHoldPaper : MonoBehaviour
                     finger.SwitchSpriteRender(true);
                 }
                 handPressed.SetActive(false);
-                TearPaperManager.Instance.SetCanTear(allFingerOn);
+                DragManager.Instance.SetCanTear(allFingerOn);
             }
         }        
     }
@@ -66,7 +68,7 @@ public class HandHoldPaper : MonoBehaviour
         handOnPos = false;
     }
     void ResetHand(){
-        StartCoroutine(coroutineMoveToTargetPos(TearPaperManager.Instance.leftHandReadyTrans));
+        StartCoroutine(coroutineMoveToTargetPos(DragManager.Instance.leftHandReadyTrans));
     }
     IEnumerator coroutineMoveToTargetPos(Transform targetTrans){        
         float lerp = 0;

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PhotoTearControl : MonoBehaviour
 {
+    [SerializeField] private GameController gameController;
     [SerializeField] private PaperControl[] paperControls;
     [SerializeField] private Animation photoTearAnimation;
     [SerializeField] private AudioSource giggleAudio;
     [SerializeField] private AudioClip[] giggleClips;
+    [SerializeField, Range(0,1)] private float giggleChance;
     private int paperIndex = 0;
     void Awake(){paperControls = GetComponentsInChildren<PaperControl>();}
     void OnEnable(){
@@ -18,7 +20,9 @@ public class PhotoTearControl : MonoBehaviour
         EventHandler.E_OnFinishCurrentTear -= FinishCurrentPaper;
     }
     void FinishCurrentPaper(PaperControl paper){
-        giggleAudio.PlayRandomClipFromClips(giggleClips);
+        if(Random.value<giggleChance){
+            giggleAudio.PlayRandomClipFromClips(giggleClips);
+        }
         if(paperIndex<paperControls.Length-1){
             StartCoroutine(CoroutineGoToNextPaper());
         }
@@ -30,6 +34,10 @@ public class PhotoTearControl : MonoBehaviour
         EventHandler.Call_OnSwitchHand(true);
         paperControls[paperIndex].StartThisPaper();
     }
+    // [ContextMenu("Test")]
+    // public void Test(){
+    //     StartCoroutine(CoroutineStackUpAllPaper());
+    // }
     IEnumerator CoroutineGoToNextPaper(){
         paperControls[paperIndex].OnFinishThisPaper();
         yield return null;
@@ -37,10 +45,15 @@ public class PhotoTearControl : MonoBehaviour
         paperControls[paperIndex].StartThisPaper();
     }
     IEnumerator CoroutineStackUpAllPaper(){
-        EventHandler.Call_OnSwitchHand(false);
+        EventHandler.Call_OnResetHand();
+        float waitTime = 2f;
+        paperIndex --;
         for(;paperIndex>=0;paperIndex--){
-            paperControls[paperIndex].ShowLeftPaper();
-            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(paperControls[paperIndex].coroutinePaperFlyIn());
+            yield return new WaitForSeconds(waitTime);
+            waitTime -= 0.25f;
+            waitTime = Mathf.Max(0.6f, waitTime);
         }
+        gameController.GoToLampInteraction();
     }
 }

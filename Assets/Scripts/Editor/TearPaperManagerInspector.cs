@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-[CustomEditor(typeof(TearPaperManager))]
+[CustomEditor(typeof(DragManager))]
 public class TearPaperManagerInspector : Editor
 {
     private static bool DebugMode = false;

@@ -14,7 +14,7 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         GameManager.mainCam = Camera.main;
-        SceneManager.LoadSceneAsync("Level-0", LoadSceneMode.Additive);
+        if(LoadInitScene)SceneManager.LoadSceneAsync("Level-0", LoadSceneMode.Additive);
     }
     public void SwitchingScene(string from, string to){
         if(!isSwitchingScene){

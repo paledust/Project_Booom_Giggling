@@ -62,16 +62,21 @@ public class TearPaperPoint : MonoBehaviour
     IEnumerator CoroutineFinished(){
         this.enabled = false;
         m_collider.enabled = false;
-        TearPaperManager.Instance.StartPlayingTearLoop();
+        DragManager.Instance.StartPlayingTearLoop();
+        StartCoroutine(delayResetHand());
         for(float t=0; t<1; t+=Time.deltaTime){
             MoveTheTearPoint(tearDir*40);
             yield return null;
         }
-        TearPaperManager.Instance.StopPlayingTearLoop();
+        DragManager.Instance.StopPlayingTearLoop();
         paper_tear.gameObject.SetActive(false);
         paper_stay.material.SetFloat("_AfterTeared", 1);
         paper.FinishThisPaper();
         gameObject.SetActive(false);
+    }
+    IEnumerator delayResetHand(){
+        yield return new WaitForSeconds(0.4f);
+        EventHandler.Call_OnResetHand();
     }
     public void SetUpTextures(Texture2D tex){
         paper_tear.material.SetTexture("_TearMask", tex);
@@ -89,7 +94,7 @@ public class TearPaperPoint : MonoBehaviour
     }
     public void ReleaseThisPoint(){
         EventHandler.Call_OnReadyToTear(this, false);
-        TearPaperManager.Instance.StopPlayingTearLoop();
+        DragManager.Instance.StopPlayingTearLoop();
     }
     /// <summary>
     /// 此方法会根据鼠标指针的位置，实时更新纸张撕扯的进度
@@ -104,7 +109,7 @@ public class TearPaperPoint : MonoBehaviour
         //     tearPos = lastTearPos;
         // }
         if(Vector3.Distance(transform.position, tearPos)>0.01f){
-            TearPaperManager.Instance.StartPlayingTearLoop();
+            DragManager.Instance.StartPlayingTearLoop();
         }
 
         transform.position = tearPos;

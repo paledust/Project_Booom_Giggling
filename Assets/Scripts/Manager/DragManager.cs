@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class TearPaperManager : Singleton<TearPaperManager>
+public class DragManager : Singleton<DragManager>
 {
     public PaperControl CurrentPaperControl{get{return currentPaperControl;}}
+    [SerializeField] private PlayerInput input;
+    [SerializeField] private DragLamp dragLamp;
     [SerializeField] private AudioSource tearAudio;
     public Transform rightHandReadyTrans;
     public Transform leftHandReadyTrans;
@@ -17,14 +19,17 @@ public class TearPaperManager : Singleton<TearPaperManager>
     }}
     private bool canTear = false;
     private int paperIndex = 0;
+    private INTERACTION_TYPE interactionType;
     float speed = 0;
     void OnEnable(){
         EventHandler.E_OnStartANewPaper += SetCurrentPaperControl;
         EventHandler.E_OnFinishCurrentTear += FinishCurrentPaper;
+        EventHandler.E_OnQuit += StopControl;
     }
     void OnDisable(){
-        EventHandler.E_OnStartANewPaper += SetCurrentPaperControl;
+        EventHandler.E_OnStartANewPaper -= SetCurrentPaperControl;
         EventHandler.E_OnFinishCurrentTear -= FinishCurrentPaper;
+        EventHandler.E_OnQuit -= StopControl;
     }
     void Update(){
         float inputSpeed = Mouse.current.delta.ReadValue().magnitude;
@@ -56,21 +61,39 @@ public class TearPaperManager : Singleton<TearPaperManager>
         if(value.isPressed){
             Vector3 mousePoint = GameManager.mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Collider2D hit = Physics2D.OverlapCircle(mousePoint, 0.3f, Service.InteractableLayer);
-            if(hit!=null && canTear){
-                currentTearingPoint = hit.GetComponent<TearPaperPoint>();
-                currentTearingPoint.StartDragThisPoint();
+            if(hit!=null){
+                switch(hit.tag){
+                    case "Paper":
+                        interactionType = INTERACTION_TYPE.PAPER;
+                        if(canTear){
+                            currentTearingPoint = hit.GetComponent<TearPaperPoint>();
+                            currentTearingPoint.StartDragThisPoint();
+                        }
+                        break;
+                    case "Lamp":
+                        interactionType = INTERACTION_TYPE.LAMP;
+                        dragLamp.OnDrag();
+                        break;
+                }
             }
         }
         else{
-            currentTearingPoint?.ReleaseThisPoint();
-            currentTearingPoint = null;
+            switch(interactionType){
+                case INTERACTION_TYPE.PAPER:
+                    currentTearingPoint?.ReleaseThisPoint();
+                    currentTearingPoint = null;
+                    break;
+                case INTERACTION_TYPE.LAMP:
+                    dragLamp.OnReleased();
+                    break;
+            }
+            interactionType = INTERACTION_TYPE.NONE;
         }
     }
     void SetCurrentPaperControl(PaperControl paper){
         currentPaperControl = paper;
     }
     void FinishCurrentPaper(PaperControl paper){
-        EventHandler.Call_OnResetHand();
         ReleaseCurrentPoint();
     }
     void ReleaseCurrentPoint(){
@@ -78,9 +101,19 @@ public class TearPaperManager : Singleton<TearPaperManager>
         currentTearingPoint = null;        
     }
     void OnMousePosition(InputValue value){
-        if(canTear){
-            currentTearingPoint?.MoveTheTearPointToMousePos(value.Get<Vector2>());
+        switch(interactionType){
+            case INTERACTION_TYPE.PAPER:
+                if(canTear){
+                    currentTearingPoint?.MoveTheTearPointToMousePos(value.Get<Vector2>());
+                }
+                break;
+            case INTERACTION_TYPE.LAMP:
+                dragLamp.MoveLampRope(value.Get<Vector2>());
+                break;
         }
+    }
+    void StopControl(){
+        input.actions.Disable();
     }
     [DllImport("user32.dll")]
     static extern bool SetCursorPos(int x, int y);

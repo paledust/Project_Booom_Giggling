@@ -7,7 +7,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject DreamInteraction;
     [SerializeField] private GameObject OpenFileInteraction;
     [SerializeField] private GameObject TearPhotoInteraction;
-    [SerializeField] private TearPaperManager tearPaperManager;
+    [SerializeField] private GameObject lampDragInteraction;
+    [SerializeField] private DragManager tearPaperManager;
     void Awake(){
         EventHandler.E_OnSwitchHand += SwitchTearPaperManager;
     }
@@ -24,5 +25,8 @@ public class GameController : MonoBehaviour
     public void GoToTearPhotoInteraction(){
         OpenFileInteraction.SetActive(false);
         TearPhotoInteraction.SetActive(true);
+    }
+    public void GoToLampInteraction(){
+        lampDragInteraction.SetActive(true);
     }
 }

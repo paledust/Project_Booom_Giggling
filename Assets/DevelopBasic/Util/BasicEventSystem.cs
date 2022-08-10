@@ -23,6 +23,10 @@ public static class EventHandler
     public static void Call_OnSwitchHand(bool isStickOut){E_OnSwitchHand?.Invoke(isStickOut);}
     public static event Action E_OnResetHand;
     public static void Call_OnResetHand(){E_OnResetHand?.Invoke();}
+    public static event Action E_OnQuit;
+    public static void Call_OnQuit(){E_OnQuit?.Invoke();}
+    public static event Action<Transform> E_OnSnapToStuff;
+    public static void Call_OnSnapToStuff(Transform target){E_OnSnapToStuff?.Invoke(target);}
 }
 
 //A More Strict Event System
