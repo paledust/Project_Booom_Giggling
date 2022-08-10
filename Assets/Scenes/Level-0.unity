@@ -1557,7 +1557,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: be9e5bd61d2790a4a867cd582d42da0c, type: 3}
   - {fileID: 8300000, guid: 8e90b471e18d3c3498f9b88b15830059, type: 3}
   - {fileID: 8300000, guid: 6267ba8c4080d5e4bb62f3fb3f5367fd, type: 3}
-  giggleChance: 0
+  giggleChance: 0.4
 --- !u!111 &227877104
 Animation:
   m_ObjectHideFlags: 0
