@@ -30,7 +30,7 @@ public class HandHoldPaper : MonoBehaviour
             fingerCounter = Mathf.Min(5, fingerCounter);
             putFingerAudio.pitch = Random.Range(0.9f,1.1f);
             putFingerAudio.PlayOneShot(fingerClip);
-            if(!handOnPos){
+            if(!handOnPos && DragManager.Instance.CurrentPaperControl!=null){
                 handOnPos = false;
                 StartCoroutine(coroutineMoveToTargetPos(DragManager.Instance.CurrentPaperControl.LeftHandTarget));
             }

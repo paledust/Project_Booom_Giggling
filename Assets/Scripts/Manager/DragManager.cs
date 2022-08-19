@@ -7,8 +7,8 @@ public class DragManager : Singleton<DragManager>
 {
     public PaperControl CurrentPaperControl{get{return currentPaperControl;}}
     [SerializeField] private PlayerInput input;
-    [SerializeField] private DragLamp dragLamp;
     [SerializeField] private AudioSource tearAudio;
+    [SerializeField] private DragLamp dragLamp;
     public Transform rightHandReadyTrans;
     public Transform leftHandReadyTrans;
     private PaperControl currentPaperControl;
@@ -72,6 +72,7 @@ public class DragManager : Singleton<DragManager>
                         break;
                     case "Lamp":
                         interactionType = INTERACTION_TYPE.LAMP;
+                        dragLamp = hit.GetComponent<DragLamp>();
                         dragLamp.OnDrag();
                         break;
                 }
@@ -85,6 +86,7 @@ public class DragManager : Singleton<DragManager>
                     break;
                 case INTERACTION_TYPE.LAMP:
                     dragLamp.OnReleased();
+                    dragLamp = null;
                     break;
             }
             interactionType = INTERACTION_TYPE.NONE;

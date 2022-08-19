@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class FileTearing : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer lightMaskSprite;
+    [SerializeField] private Color lightsUpColor;
     [SerializeField] private GameController gameController;
+    [SerializeField] private GameObject LampStart;
     [SerializeField] private AudioSource pourAudio;
     [SerializeField] private Animation enterAnimation;
     [SerializeField] private AnimationClip exitClip;
@@ -18,7 +21,11 @@ public class FileTearing : MonoBehaviour
     }
     public void StartInteraction(){
         EventHandler.Call_OnSwitchHand(true);
+        LampStart.SetActive(true);
+    }
+    public void StartFileTearing(){
         file.StartThisPaper();
+        StartCoroutine(coroutineLightsUp());
     }
     public void FinishInteraction(){
         gameController.GoToTearPhotoInteraction();
@@ -39,5 +46,14 @@ public class FileTearing : MonoBehaviour
         EventHandler.Call_OnSwitchHand(false);
         yield return new WaitForSeconds(.5f);
         enterAnimation.Play(exitClip.name);
+    }
+    IEnumerator coroutineLightsUp(){
+        Color initColor = lightMaskSprite.color;
+        for(float t=0; t<1; t+=Time.deltaTime*10){
+            lightMaskSprite.color = Color.Lerp(initColor, lightsUpColor, EasingFunc.Easing.QuadEaseOut(t));
+            yield return null;
+        }
+        Shader.SetGlobalInt("_USE_PURE_COLOR", 0);
+        LampStart.SetActive(false);
     }
 }

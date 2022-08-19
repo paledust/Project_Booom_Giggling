@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class DragLamp : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D lampRigid;
     [SerializeField] private Transform root;
     [SerializeField] private float dragLength;
     [SerializeField] private float dragPassLength;
-    [SerializeField] private SpriteRenderer lightOffSprite;
-    [SerializeField] private Color lightOffColor;
 [Header("Audio")]
     [SerializeField] private AudioSource m_audio;
     [SerializeField] private AudioClip lightOff_Ready_Clip;
     [SerializeField] private AudioClip lightOff_Clip;
+[Header("Trigger Event")]
+    [SerializeField] private UnityEvent OnLampTriggered;
     private bool passed = false;
     private bool sound  = false;
     public void OnDrag(){
@@ -26,9 +26,8 @@ public class DragLamp : MonoBehaviour
         lampRigid.isKinematic = false;
         EventHandler.Call_OnSnapToStuff(null);
         if(passed){
-            EventHandler.Call_OnQuit();
             m_audio.PlayOneShot(lightOff_Clip);
-            StartCoroutine(coroutineEnd());
+            OnLampTriggered?.Invoke();
         }
     }
     public void MoveLampRope(Vector2 mousePos){
@@ -49,13 +48,5 @@ public class DragLamp : MonoBehaviour
         }
 
         lampRigid.MovePosition(worldPos);
-    }
-    IEnumerator coroutineEnd(){
-        for(float t=0; t<1; t+=Time.deltaTime*8){
-            lightOffSprite.color = Color.Lerp(Color.clear, lightOffColor, EasingFunc.Easing.QuadEaseOut(t));
-            yield return null;
-        }
-        yield return new WaitForSeconds(2);
-        Application.Quit();
     }
 }
