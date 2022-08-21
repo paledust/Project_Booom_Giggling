@@ -13,9 +13,8 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        SaveManager.LoadGame();
         GameManager.mainCam = Camera.main;
-        if(LoadInitScene)SceneManager.LoadSceneAsync("Level-0", LoadSceneMode.Additive);
+        if(LoadInitScene)StartCoroutine(SwitchToInitScene("Level-0"));
     }
     public void SwitchingScene(string from, string to){
         if(!isSwitchingScene){
@@ -46,6 +45,13 @@ public class GameManager : Singleton<GameManager>
     }
     void OnApplicationQuit(){
         SaveManager.SaveGame();
+    }
+    IEnumerator SwitchToInitScene(string to){
+        isSwitchingScene = true;
+        yield return SceneManager.LoadSceneAsync(to, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(to));
+        SaveManager.LoadGame();
+        isSwitchingScene = false;
     }
     /// <summary>
     /// This method is good for load scene in an additive way, having a persistance scene
