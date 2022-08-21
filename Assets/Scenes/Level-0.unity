@@ -18108,18 +18108,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2038779591}
-        m_TargetAssemblyTypeName: PhotoDissolveManager, Assembly-CSharp
-        m_MethodName: SetTimeFadeValue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1276898119
 GameObject:
   m_ObjectHideFlags: 0
@@ -27428,11 +27416,11 @@ MonoBehaviour:
   - 0.2
   - 0.25
   - 0.45
-  - 0.4
-  - 0.7
-  - 1
-  - 0.8
-  - 1
+  - 0.3
+  - 0.45
+  - 0.6
+  - 0.55
+  - 0.85
   iteration: 0
 --- !u!1 &2039480581
 GameObject:

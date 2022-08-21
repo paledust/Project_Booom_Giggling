@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
             lightOffSprite.color = Color.Lerp(Color.clear, lightOffColor, EasingFunc.Easing.QuadEaseOut(t));
             yield return null;
         }
+        EventHandler.Call_OnNextSmileValue();
         yield return new WaitForSeconds(2);
         GameManager.Instance.EndGame();
     }
