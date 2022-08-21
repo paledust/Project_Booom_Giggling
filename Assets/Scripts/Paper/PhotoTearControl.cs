@@ -7,8 +7,6 @@ public class PhotoTearControl : MonoBehaviour
     [SerializeField] private GameController gameController;
     [SerializeField] private PaperControl[] paperControls;
     [SerializeField] private Animation photoTearAnimation;
-    [SerializeField] private AudioSource tearAudio;
-    [SerializeField] private AudioClip[] tearClips;
     private int paperIndex = 0;
     void Awake(){paperControls = GetComponentsInChildren<PaperControl>();}
     void OnEnable(){

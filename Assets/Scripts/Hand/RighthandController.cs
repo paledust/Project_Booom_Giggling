@@ -81,7 +81,10 @@ public class RighthandController : MonoBehaviour
             StartCoroutine(coroutineSnapHand_PositionOnly(target));
             RotateAlong = false;
         }
-        else snapTarget = null;
+        else{
+            snapTarget = null;
+            RotateAlong = true;
+        }
     }
     void ResetHand(){
         StartCoroutine(coroutineResetRightHand());

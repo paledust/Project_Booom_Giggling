@@ -7,10 +7,13 @@ public class DragManager : Singleton<DragManager>
 {
     public PaperControl CurrentPaperControl{get{return currentPaperControl;}}
     [SerializeField] private PlayerInput input;
-    [SerializeField] private AudioSource tearAudio;
     [SerializeField] private DragLamp dragLamp;
+[Header("Audio")]
+    [SerializeField] private AudioSource tearAudio;
+    [SerializeField] private AudioSource strangeAudio;
     public Transform rightHandReadyTrans;
     public Transform leftHandReadyTrans;
+    private float targetStrangeVolume = 0;
     private PaperControl currentPaperControl;
     private TearPaperPoint currentTearingPoint;
     public float tearingProgress{get{
@@ -39,6 +42,13 @@ public class DragManager : Singleton<DragManager>
         }
         if(speed == 0){
             StopPlayingTearLoop();
+            targetStrangeVolume = 0;
+        }
+        if(strangeAudio.volume!=targetStrangeVolume){
+            strangeAudio.volume = Mathf.Lerp(strangeAudio.volume, targetStrangeVolume, Time.deltaTime*10);
+            if(Mathf.Abs(strangeAudio.volume - targetStrangeVolume)<=0.001f){
+                strangeAudio.volume = targetStrangeVolume;
+            }
         }
     }
     public void SetCanTear(bool value){
@@ -52,6 +62,11 @@ public class DragManager : Singleton<DragManager>
             float clipLength = tearAudio.clip.length;
             tearAudio.time = Random.Range(0f, clipLength);
             tearAudio.Play();
+
+            targetStrangeVolume = 1;
+            if(!strangeAudio.isPlaying){
+                strangeAudio.Play();
+            }
         }
     }
     public void StopPlayingTearLoop(){
