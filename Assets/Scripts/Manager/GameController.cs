@@ -42,6 +42,6 @@ public class GameController : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(2);
-        Application.Quit();
+        GameManager.Instance.EndGame();
     }
 }

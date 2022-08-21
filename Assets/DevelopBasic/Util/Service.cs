@@ -11,7 +11,9 @@ public static class Service
     public static int DRAG_POINT_ID = Shader.PropertyToID("DRAG_POINT");
     public static int DEBUG_ID = Shader.PropertyToID("DEBUG");
     public static int HOLLOW_ID  = Shader.PropertyToID("HOLLOW");
+    public static int TIME_FADE_ID = Shader.PropertyToID("TIME_FADE");
 #endregion
+
 #region HelpFunction
     /// <summary>
     /// Return a list of all active and inactive objects of T type in loaded scenes.

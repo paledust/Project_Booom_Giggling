@@ -7,7 +7,7 @@ using UnityEngine;
 //这是一个C# Event类型，里面可以定义各种event，当某个地方调用"Call_"function时，所有注册了该event的function都会被调用。
 //注册的方法与delegate一致，可以直接用 +, -运算
 //注册的条件是，该function必须返回值为null，且参数接受的类型与顺序要和event Action里定义的完全一致。
-//Action本质上是一个返回值为void的delegate，"<>"里的内容相当于时delegate里的参数类型，可以定义多个参数，且为不同类型<int, float, bool>
+//Action本质上是一个返回值为void的delegate，"<>"里的内容相当于delegate里的参数类型，可以定义多个参数，且为不同类型，例如<int, float, bool>
 //*注意*，若需要注册某个event，一定要确保该对象被清除之前注销该event，否则会导致内存泄漏。常用的注册方式是在OnEnable注册，并在OnDisable注销
 public static class EventHandler
 {
@@ -27,6 +27,8 @@ public static class EventHandler
     public static void Call_OnQuit(){E_OnQuit?.Invoke();}
     public static event Action<Transform> E_OnSnapToStuff;
     public static void Call_OnSnapToStuff(Transform target){E_OnSnapToStuff?.Invoke(target);}
+    public static event Action E_OnNextSmileValue;
+    public static void Call_OnNextSmileValue(){E_OnNextSmileValue?.Invoke();}
 }
 
 //A More Strict Event System

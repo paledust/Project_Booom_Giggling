@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using SimpleSaveSystem;
 //Please make sure "GameManager" is excuted before every custom script
 public class GameManager : Singleton<GameManager>
 {
@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+        SaveManager.LoadGame();
         GameManager.mainCam = Camera.main;
         if(LoadInitScene)SceneManager.LoadSceneAsync("Level-0", LoadSceneMode.Additive);
     }
@@ -39,6 +40,12 @@ public class GameManager : Singleton<GameManager>
         AudioListener.pause = false;
         Time.timeScale = 1;
         isPaused = false;
+    }
+    public void EndGame(){
+        Application.Quit();
+    }
+    void OnApplicationQuit(){
+        SaveManager.SaveGame();
     }
     /// <summary>
     /// This method is good for load scene in an additive way, having a persistance scene

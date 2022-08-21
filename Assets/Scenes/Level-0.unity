@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -370,7 +370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &40956944
 Transform:
   m_ObjectHideFlags: 0
@@ -419,6 +419,7 @@ Transform:
   - {fileID: 1451371706}
   - {fileID: 335844166}
   - {fileID: 451624170}
+  - {fileID: 2038779590}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1143,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightOffSprite: {fileID: 451624171}
-  lightOffColor: {r: 0, g: 0, b: 0, a: 1}
+  lightOffColor: {r: 0.09803922, g: 0.12941177, b: 0.14117648, a: 0.9490196}
   DreamInteraction: {fileID: 1276898119}
   OpenFileInteraction: {fileID: 40956943}
   TearPhotoInteraction: {fileID: 227877101}
@@ -1715,7 +1716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &227877102
 Transform:
   m_ObjectHideFlags: 0
@@ -1763,13 +1764,8 @@ MonoBehaviour:
   gameController: {fileID: 142155900}
   paperControls: []
   photoTearAnimation: {fileID: 227877104}
-  giggleAudio: {fileID: 227877105}
-  giggleClips:
-  - {fileID: 8300000, guid: a2b49ec9d6b2c9d4ebc558cdc7ed9b89, type: 3}
-  - {fileID: 8300000, guid: be9e5bd61d2790a4a867cd582d42da0c, type: 3}
-  - {fileID: 8300000, guid: 8e90b471e18d3c3498f9b88b15830059, type: 3}
-  - {fileID: 8300000, guid: 6267ba8c4080d5e4bb62f3fb3f5367fd, type: 3}
-  giggleChance: 0
+  tearAudio: {fileID: 0}
+  tearClips: []
 --- !u!111 &227877104
 Animation:
   m_ObjectHideFlags: 0
@@ -4050,7 +4046,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 0}
+  m_Color: {r: 0.09803922, g: 0.12941177, b: 0.14117648, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -18112,6 +18108,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2038779591}
+        m_TargetAssemblyTypeName: PhotoDissolveManager, Assembly-CSharp
+        m_MethodName: SetTimeFadeValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1276898119
 GameObject:
   m_ObjectHideFlags: 0
@@ -27370,6 +27378,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2038779589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2038779590}
+  - component: {fileID: 2038779591}
+  m_Layer: 0
+  m_Name: PhotoDissolveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2038779590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038779589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 51737432}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2038779591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038779589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589e592bacbe974409cd5d4f33360e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  byteGuid: 246a78ca78194a4fa39387289e180251
+  timeFade: 0.2
+  timeFadeValues:
+  - 0.2
+  - 0.25
+  - 0.45
+  - 0.4
+  - 0.7
+  - 1
+  - 0.8
+  - 1
+  iteration: 0
 --- !u!1 &2039480581
 GameObject:
   m_ObjectHideFlags: 0
