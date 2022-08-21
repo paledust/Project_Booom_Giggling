@@ -8,8 +8,9 @@ public class PaperControl : MonoBehaviour
     [SerializeField] private TearPaperPoint[] tearPaperPoints;
     [SerializeField] private Texture2D tearTexture;
     [SerializeField] private SpriteRenderer paperStay;
-    private SpriteRenderer spriteRenderer;
+    private float throwOutTime = .5f;
     public Transform LeftHandTarget{get{return leftHandTarget;}}
+    private SpriteRenderer spriteRenderer;
     void Awake() {spriteRenderer = GetComponent<SpriteRenderer>();}
     public void FinishThisPaper(){
         EventHandler.Call_OnFinishCurrentTear(this);
@@ -32,6 +33,33 @@ public class PaperControl : MonoBehaviour
     public void OnFinishThisPaper(){
         gameObject.SetActive(false);
     }
+    public IEnumerator FinishingThisPaper(){
+        if(throwOutTime==0){
+            gameObject.SetActive(false);
+        }
+        else{
+            Vector3 initpos = transform.position;
+            Quaternion initRot = transform.rotation;
+            Vector3 throwPos = initpos + (Vector3)Random.insideUnitCircle.normalized*5f;
+            Quaternion throwRot = transform.rotation*Quaternion.Euler(0,0,Random.Range(-40,40));
+
+            Color initColor = paperStay.color;
+            Color clearColor = initColor;
+            clearColor.a = 0;
+
+            for(float t=0; t<1; t+=Time.deltaTime/throwOutTime){
+                paperStay.color = Color.Lerp(initColor, clearColor, EasingFunc.Easing.SmoothInOut(t));
+                transform.position = Vector3.Lerp(initpos, throwPos, EasingFunc.Easing.SmoothInOut(t));
+                transform.rotation = Quaternion.Lerp(initRot, throwRot, EasingFunc.Easing.SmoothInOut(t));
+                yield return null;
+            }
+            paperStay.color = clearColor;
+            gameObject.SetActive(false);
+
+            transform.position = initpos;
+            transform.rotation = initRot;
+        }
+    }
     public IEnumerator coroutinePaperFlyIn(){
         Quaternion initRot = Quaternion.Euler(0,0, Random.Range(30f,60f) * (Random.Range(0,2)*2-1));
 
@@ -40,7 +68,7 @@ public class PaperControl : MonoBehaviour
 
         Color initColor = paperStay.color;
         Color clearColor = initColor;
-
+        initColor.a = 1;
         clearColor.a = 0;
         paperStay.transform.localScale = resizeScale;
         paperStay.transform.localRotation = initRot;

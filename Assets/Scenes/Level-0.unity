@@ -370,7 +370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &40956944
 Transform:
   m_ObjectHideFlags: 0
@@ -1092,6 +1092,10 @@ PrefabInstance:
       propertyPath: tearTexture
       value: 
       objectReference: {fileID: 2800000, guid: a31154ad01aa1f044ac85c60b2d4c530, type: 3}
+    - target: {fileID: 4276447387574457256, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
+      propertyPath: tearLoopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6336f8b41abd0004d9afde201b9b8c3d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
 --- !u!4 &111978388 stripped
@@ -1686,6 +1690,10 @@ PrefabInstance:
       propertyPath: tearTexture
       value: 
       objectReference: {fileID: 2800000, guid: d6d734e2fb718204786fe24417396ce6, type: 3}
+    - target: {fileID: 4276447387574457256, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
+      propertyPath: tearLoopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a6cacfadd2f10e4992c1f7d45acbec3, type: 3}
     - target: {fileID: 7523519521174882352, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3293,8 +3301,6 @@ MonoBehaviour:
   input: {fileID: 335844167}
   dragLamp: {fileID: 0}
   tearAudio: {fileID: 335844169}
-  strangeAudio: {fileID: 1367689733}
-  rightHandReadyTrans: {fileID: 414150830}
   leftHandReadyTrans: {fileID: 328831815}
 --- !u!82 &335844169
 AudioSource:
@@ -11198,6 +11204,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2800000, guid: d209e2618e1c2d04cb2ab85b9d683c72, type: 3}
     - target: {fileID: 4276447387574457256, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
+      propertyPath: tearLoopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c19ccd51169f25f48892e4a1450a342a, type: 3}
+    - target: {fileID: 4276447387574457256, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
       propertyPath: tearPaperPoints.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -18123,7 +18133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1276898120
 Transform:
   m_ObjectHideFlags: 0
@@ -18929,6 +18939,10 @@ PrefabInstance:
       propertyPath: tearTexture
       value: 
       objectReference: {fileID: 2800000, guid: 90355216811c47241a63b2fff516cab4, type: 3}
+    - target: {fileID: 4276447387574457256, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
+      propertyPath: tearLoopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: dd9efee1f3c2487498e69949f20779fe, type: 3}
     - target: {fileID: 7523519521174882352, guid: 723f22ae694b5d245a25d21278974b39, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -19034,13 +19048,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1367689732}
   - component: {fileID: 1367689733}
+  - component: {fileID: 1367689734}
   m_Layer: 0
   m_Name: StrangeTearSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1367689732
 Transform:
   m_ObjectHideFlags: 0
@@ -19066,11 +19081,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9c77f495181f58d488237678c2984df3, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -19152,6 +19167,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!164 &1367689734
+AudioReverbFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367689731}
+  m_Enabled: 1
+  m_DryLevel: 0
+  m_Room: -1000
+  m_RoomHF: -100
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.83
+  m_ReflectionsLevel: -2602
+  m_ReverbLevel: 200
+  m_ReverbDelay: 0.011
+  m_Diffusion: 100
+  m_Density: 100
+  m_HFReference: 5000
+  m_RoomLF: 0
+  m_LFReference: 250
+  m_ReflectionsDelay: 0
+  m_ReverbPreset: 1
 --- !u!1 &1377883826
 GameObject:
   m_ObjectHideFlags: 0
@@ -27338,7 +27376,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 712303661
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: c0e8ee546a882574e86ad211fc2bff9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -27546,9 +27584,6 @@ MonoBehaviour:
   - 0.45
   - 0.3
   - 0.45
-  - 0.6
-  - 0.55
-  - 0.85
   iteration: 0
 --- !u!1 &2039480581
 GameObject:
@@ -28380,7 +28415,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.09913208, g: 0.13128303, b: 0.142, a: 0}
+  m_Color: {r: 0.09913208, g: 0.13128303, b: 0.142, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -29,7 +29,7 @@ public class PhotoTearControl : MonoBehaviour
         paperControls[paperIndex].StartThisPaper();
     }
     IEnumerator CoroutineGoToNextPaper(){
-        paperControls[paperIndex].OnFinishThisPaper();
+        yield return paperControls[paperIndex].FinishingThisPaper();
         yield return null;
         paperIndex ++;
         paperControls[paperIndex].StartThisPaper();
