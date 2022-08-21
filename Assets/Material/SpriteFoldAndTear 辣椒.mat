@@ -64,6 +64,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SmileTex:
+        m_Texture: {fileID: 2800000, guid: 420b63dda9b1d69438f5a866610f4997, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TearMask:
         m_Texture: {fileID: 2800000, guid: 523d782fcc0afaf41847e6dbb0db7159, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -74,6 +78,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _TearedText:
         m_Texture: {fileID: 2800000, guid: 6f610c9570a9c8c41ad289576e81eb12, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
